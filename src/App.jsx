@@ -302,7 +302,9 @@ function Marquee() {
 function Hero() {
   const [step, setStep] = useState(0);
   const [typed, setTyped] = useState("");
+  const w = useWidth();
   const full = "Full Stack Developer";
+
   useEffect(() => {
     const el = document.getElementById("home");
     if (!el) return;
@@ -333,6 +335,7 @@ function Hero() {
     }, 65);
     return () => clearInterval(iv);
   }, [step]);
+
   const show = (n, style, children) => step >= n ? <div style={{ animation: "fadeUp .8s ease both", ...style }}>{children}</div> : null;
 
   return (
@@ -343,11 +346,11 @@ function Hero() {
       <div style={{ position: "absolute", left: 0, right: 0, height: 2, background: "linear-gradient(90deg,transparent,rgba(91,168,245,.1),transparent)", animation: "scanline 8s linear infinite", pointerEvents: "none", zIndex: 1 }} />
       <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(30,58,95,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(30,58,95,.06) 1px,transparent 1px)", backgroundSize: "48px 48px", pointerEvents: "none" }} />
 
-       <div style={{ position: "relative", zIndex: 2, maxWidth: 900, textAlign: useWidth() <= 900 ? 'center' : 'left' }}>
+       <div style={{ position: "relative", zIndex: 2, maxWidth: 900, textAlign: w <= 900 ? 'center' : 'left' }}>
         {step >= 2 && (
-          <div style={{ position: "relative", marginBottom: 4, width: '100%', display: 'flex', justifyContent: useWidth() <= 900 ? 'center' : 'flex-start' }}>
-            <h1 style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: "clamp(24px, 10vw, 130px)", whiteSpace: "nowrap", lineHeight: .88, letterSpacing: "-.02em", color: "transparent", position: "absolute", top: 0, left: useWidth() <= 900 ? "50%" : 0, transform: useWidth() <= 900 ? "translateX(-50%)" : "none", WebkitTextStroke: "1px rgba(91,168,245,.1)", animation: "glitch1 6s steps(1) infinite 2s", pointerEvents: "none", userSelect: "none" }}>HI I AM KUNAL</h1>
-            <h1 style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: "clamp(24px, 10vw, 130px)", whiteSpace: "nowrap", lineHeight: .88, letterSpacing: "-.02em", color: "transparent", position: "absolute", top: 0, left: useWidth() <= 900 ? "50%" : 0, transform: useWidth() <= 900 ? "translateX(-50%)" : "none", WebkitTextStroke: "1px rgba(150,210,255,.07)", animation: "glitch2 6s steps(1) infinite 2.3s", pointerEvents: "none", userSelect: "none" }}>HI I AM KUNAL</h1>
+          <div style={{ position: "relative", marginBottom: 4, width: '100%', display: 'flex', justifyContent: w <= 900 ? 'center' : 'flex-start' }}>
+            <h1 style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: "clamp(24px, 10vw, 130px)", whiteSpace: "nowrap", lineHeight: .88, letterSpacing: "-.02em", color: "transparent", position: "absolute", top: 0, left: w <= 900 ? "50%" : 0, transform: w <= 900 ? "translateX(-50%)" : "none", WebkitTextStroke: "1px rgba(91,168,245,.1)", animation: "glitch1 6s steps(1) infinite 2s", pointerEvents: "none", userSelect: "none" }}>HI I AM KUNAL</h1>
+            <h1 style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: "clamp(24px, 10vw, 130px)", whiteSpace: "nowrap", lineHeight: .88, letterSpacing: "-.02em", color: "transparent", position: "absolute", top: 0, left: w <= 900 ? "50%" : 0, transform: w <= 900 ? "translateX(-50%)" : "none", WebkitTextStroke: "1px rgba(150,210,255,.07)", animation: "glitch2 6s steps(1) infinite 2.3s", pointerEvents: "none", userSelect: "none" }}>HI I AM KUNAL</h1>
             <h1 style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: "clamp(24px, 10vw, 130px)", whiteSpace: "nowrap", lineHeight: .88, letterSpacing: "-.02em", animation: "fadeUp .9s ease .2s both" }}>
               <span style={{ background: "linear-gradient(135deg,#dce8f5 0%,#8bbfe8 50%,#3a7abf 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>HI I AM KUNAL</span>
             </h1>
@@ -358,10 +361,10 @@ function Hero() {
             <span className="shimmer-text">{typed}<span style={{ animation: "blink 1s step-end infinite", color: "#5ba8f5" }}>|</span></span>
           </h1>
         )}
-        {show(3, { maxWidth: useWidth() <= 900 ? "100%" : 460, fontSize: 13, color: "#2a4a6a", lineHeight: 1.9, marginBottom: 40, marginInline: useWidth() <= 900 ? "auto" : "0" },
+        {show(3, { maxWidth: w <= 900 ? "100%" : 460, fontSize: 13, color: "#2a4a6a", lineHeight: 1.9, marginBottom: 40, marginInline: w <= 900 ? "auto" : "0" },
           <>Building <span style={{ color: "#8bbfe8" }}>digital experiences</span> at the intersection of design and code. Obsessed with performance, motion, and craft.</>
         )}
-        {show(4, { display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap", justifyContent: useWidth() <= 900 ? 'center' : 'flex-start' },
+        {show(4, { display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap", justifyContent: w <= 900 ? 'center' : 'flex-start' },
           <><HoverBtn href="#projects" primary>View Work</HoverBtn><HoverBtn href="#contact">Let's Talk →</HoverBtn></>
         )}
       </div>
@@ -502,7 +505,7 @@ function CertCard({ c, i }) {
   const w = useWidth();
   return (
     <div key={c.name} className={`reveal d${Math.min(i + 1, 4)} cert-row`}
-      onMouseEnter={() => setH(false || setH(true))} onMouseLeave={() => setH(false)}
+      onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
       style={{ display: "grid", gridTemplateColumns: w <= 560 ? "50px 1fr" : "60px 1fr auto auto", gap: w <= 560 ? "10px 15px" : "14px 18px", alignItems: "center", padding: w <= 560 ? "15px 18px" : "19px 22px", background: h ? "rgba(10,25,60,.5)" : "rgba(5,12,30,.5)", borderLeft: `2px solid ${h ? c.color : "rgba(20,50,100,.3)"}`, transform: h ? "translateX(5px)" : "none", transition: "all .25s" }}>
       <div style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: w <= 560 ? 16 : 20, color: h ? c.color : "#1e3a5f", transition: "color .2s" }}>{c.year}</div>
       <div>
@@ -684,6 +687,7 @@ function Footer() {
 export default function App() {
   const [active, setActive] = useState("home");
   const w = useWidth();
+  useReveal();
 
   useEffect(() => {
     const secs = document.querySelectorAll("section[id]");
@@ -694,8 +698,6 @@ export default function App() {
       secs.forEach(s => io.observe(s));
       return () => io.disconnect();
     }, []);
-  
-    useReveal();
   
     return (
     <div style={{ minHeight: "100vh", background: "#020408", position: "relative" }}>
