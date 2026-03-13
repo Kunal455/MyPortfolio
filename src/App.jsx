@@ -497,27 +497,31 @@ const CERTS = [
   { year: "2025", name: "Full Stack Web Development", issuer: "Professional Certificate", badge: "Active", color: "#5ba8f5" },
   { year: "2024", name: "Complete Python Bootcamp", issuer: "Udemy", badge: "Active", color: "#8bbfe8" },
 ];
+function CertCard({ c, i }) {
+  const [h, setH] = useState(false);
+  const w = useWidth();
+  return (
+    <div key={c.name} className={`reveal d${Math.min(i + 1, 4)} cert-row`}
+      onMouseEnter={() => setH(false || setH(true))} onMouseLeave={() => setH(false)}
+      style={{ display: "grid", gridTemplateColumns: w <= 560 ? "50px 1fr" : "60px 1fr auto auto", gap: w <= 560 ? "10px 15px" : "14px 18px", alignItems: "center", padding: w <= 560 ? "15px 18px" : "19px 22px", background: h ? "rgba(10,25,60,.5)" : "rgba(5,12,30,.5)", borderLeft: `2px solid ${h ? c.color : "rgba(20,50,100,.3)"}`, transform: h ? "translateX(5px)" : "none", transition: "all .25s" }}>
+      <div style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: w <= 560 ? 16 : 20, color: h ? c.color : "#1e3a5f", transition: "color .2s" }}>{c.year}</div>
+      <div>
+        <div style={{ fontFamily: "'Instrument Serif',serif", fontSize: w <= 560 ? 14 : 16, color: "#dce8f5" }}>{c.name}</div>
+        <div style={{ fontSize: 10, color: "#1a3050", marginTop: 2 }}>{c.issuer}</div>
+      </div>
+      <span className="cert-extra" style={{ fontSize: 9, letterSpacing: ".18em", textTransform: "uppercase", color: c.color, border: `1px solid ${c.color}35`, padding: "2px 9px", whiteSpace: "nowrap" }}>{c.badge}</span>
+      <span className="cert-extra" style={{ color: h ? "#5ba8f5" : "#1a3050", fontSize: 14, transform: h ? "translateX(3px)" : "none", transition: "all .2s" }}>→</span>
+    </div>
+  );
+}
+
 function Certificates() {
   return (
     <section id="certificates" className="sp" style={{ padding: "96px 52px" }}>
       <SectionTag>Credentials</SectionTag>
       <SectionTitle>Certifi<span style={{ color: "#5ba8f5", textShadow: "0 0 18px rgba(91,168,245,.3)" }}>cations</span></SectionTitle>
       <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        {CERTS.map((c, i) => {
-          const [h, setH] = useState(false); return (
-            <div key={c.name} className={`reveal d${Math.min(i + 1, 4)} cert-row`}
-              onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
-              style={{ display: "grid", gridTemplateColumns: useWidth() <= 560 ? "50px 1fr" : "60px 1fr auto auto", gap: useWidth() <= 560 ? "10px 15px" : "14px 18px", alignItems: "center", padding: useWidth() <= 560 ? "15px 18px" : "19px 22px", background: h ? "rgba(10,25,60,.5)" : "rgba(5,12,30,.5)", borderLeft: `2px solid ${h ? c.color : "rgba(20,50,100,.3)"}`, transform: h ? "translateX(5px)" : "none", transition: "all .25s" }}>
-              <div style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: useWidth() <= 560 ? 16 : 20, color: h ? c.color : "#1e3a5f", transition: "color .2s" }}>{c.year}</div>
-              <div>
-                <div style={{ fontFamily: "'Instrument Serif',serif", fontSize: useWidth() <= 560 ? 14 : 16, color: "#dce8f5" }}>{c.name}</div>
-                <div style={{ fontSize: 10, color: "#1a3050", marginTop: 2 }}>{c.issuer}</div>
-              </div>
-              <span className="cert-extra" style={{ fontSize: 9, letterSpacing: ".18em", textTransform: "uppercase", color: c.color, border: `1px solid ${c.color}35`, padding: "2px 9px", whiteSpace: "nowrap" }}>{c.badge}</span>
-              <span className="cert-extra" style={{ color: h ? "#5ba8f5" : "#1a3050", fontSize: 14, transform: h ? "translateX(3px)" : "none", transition: "all .2s" }}>→</span>
-            </div>
-          );
-        })}
+        {CERTS.map((c, i) => <CertCard key={c.name} c={c} i={i} />)}
       </div>
     </section>
   );
@@ -527,31 +531,37 @@ const ACHIEVEMENTS = [
   { icon: "💻", title: "500+ DSA Questions Solved", org: "LeetCode & GeeksForGeeks", desc: "Demonstrated strong algorithmic and problem-solving skills across major competitive programming platforms.", year: "2024" },
   { icon: "🏆", title: "TCS CodeVita Participant", org: "Hackathon", desc: "Competed in one of the world's largest coding contests tackling complex algorithmic challenges.", year: "2024" },
 ];
+function AchievementCard({ a, i, last }) {
+  const [h, setH] = useState(false);
+  const w = useWidth();
+  return (
+    <div key={a.title} className={`reveal d${Math.min(i + 1, 4)}${last ? " wide-card" : ""}`}
+      onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
+      style={{ gridColumn: (last && w > 900) ? "span 2" : "span 1", padding: w <= 560 ? "24px 20px" : "28px 24px", background: h ? "rgba(10,25,60,.7)" : "rgba(5,12,30,.6)", border: `1px solid ${h ? "rgba(91,168,245,.3)" : "rgba(20,50,100,.2)"}`, transition: "all .28s", position: "relative", overflow: "hidden" }}>
+      <div style={{ display: "flex", alignItems: "flex-start", gap: 16 }}>
+        <div style={{ fontSize: 26, lineHeight: 1 }}>{a.icon}</div>
+        <div style={{ flex: 1 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 5, flexWrap: "wrap", gap: 8 }}>
+            <div style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: 15, color: h ? "#dce8f5" : "#8ba8c8", transition: "color .2s" }}>{a.title}</div>
+            <span style={{ fontSize: 9, letterSpacing: ".18em", textTransform: "uppercase", color: "#5ba8f5", border: "1px solid rgba(91,168,245,.25)", padding: "2px 9px" }}>{a.year}</span>
+          </div>
+          <div style={{ fontSize: 11, color: "#3a6a9a", marginBottom: 7 }}>{a.org}</div>
+          <p style={{ fontSize: 12, color: "#1e3a5f" }}>{a.desc}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Achievements() {
   return (
     <section id="achievements" className="sp" style={{ padding: "96px 52px", background: "rgba(4,9,22,.7)" }}>
       <SectionTag>Milestones</SectionTag>
       <SectionTitle>Achieve<span style={{ color: "#5ba8f5", textShadow: "0 0 18px rgba(91,168,245,.3)" }}>ments</span></SectionTitle>
       <div className="ga">
-        {ACHIEVEMENTS.map((a, i) => {
-          const [h, setH] = useState(false); const last = i === ACHIEVEMENTS.length - 1; return (
-            <div key={a.title} className={`reveal d${Math.min(i + 1, 4)}${last ? " wide-card" : ""}`}
-              onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
-              style={{ gridColumn: (last && useWidth() > 900) ? "span 2" : "span 1", padding: useWidth() <= 560 ? "24px 20px" : "28px 24px", background: h ? "rgba(10,25,60,.7)" : "rgba(5,12,30,.6)", border: `1px solid ${h ? "rgba(91,168,245,.3)" : "rgba(20,50,100,.2)"}`, transition: "all .28s", position: "relative", overflow: "hidden" }}>
-              <div style={{ display: "flex", alignItems: "flex-start", gap: 16 }}>
-                <div style={{ fontSize: 26, lineHeight: 1 }}>{a.icon}</div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 5, flexWrap: "wrap", gap: 8 }}>
-                    <div style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: 15, color: h ? "#dce8f5" : "#8ba8c8", transition: "color .2s" }}>{a.title}</div>
-                    <span style={{ fontSize: 9, letterSpacing: ".18em", textTransform: "uppercase", color: "#5ba8f5", border: "1px solid rgba(91,168,245,.25)", padding: "2px 9px" }}>{a.year}</span>
-                  </div>
-                  <div style={{ fontSize: 11, color: "#3a6a9a", marginBottom: 7 }}>{a.org}</div>
-                  <p style={{ fontSize: 12, color: "#1e3a5f" }}>{a.desc}</p>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+        {ACHIEVEMENTS.map((a, i) => (
+          <AchievementCard key={a.title} a={a} i={i} last={i === ACHIEVEMENTS.length - 1} />
+        ))}
       </div>
     </section>
   );
@@ -573,10 +583,30 @@ function Resume() {
   );
 }
 
+function SocialLink({ l }) {
+  const [h, setH] = useState(false);
+  return (
+    <a key={l.label} href={l.href} target="_blank" rel="noreferrer" onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)} title={l.label}
+      style={{
+        display: "flex", justifyContent: "center", alignItems: "center",
+        width: 56, height: 56, borderRadius: "50%",
+        background: h ? "rgba(91,168,245,.1)" : "rgba(20,50,100,.2)",
+        border: `1px solid ${h ? "rgba(91,168,245,.5)" : "rgba(30,58,95,.5)"}`,
+        color: h ? "#5ba8f5" : "#8ba8c8",
+        transition: "all .3s ease",
+        transform: h ? "translateY(-4px)" : "none",
+        boxShadow: h ? "0 10px 20px rgba(0,0,0,.3)" : "none"
+      }}>
+      <l.Icon style={{ fontSize: 24 }} />
+    </a>
+  );
+}
+
 function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [sent, setSent] = useState(false);
   const [focused, setFocused] = useState("");
+  const w = useWidth();
   const LINKS = [
     { label: "Email", val: "kunal123647@gmail.com", href: "mailto:kunal123647@gmail.com", Icon: FiMail },
     { label: "Phone", val: "+91 9128744294", href: "tel:+919128744294", Icon: FiPhone },
@@ -605,25 +635,9 @@ function Contact() {
           <h2 className="reveal d1" style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: "clamp(40px,6vw,86px)", lineHeight: .9, color: "#dce8f5", marginBottom: 22 }}>
             LET'S<br />BUILD<br /><span style={{ color: "#5ba8f5", textShadow: "0 0 26px rgba(91,168,245,.4)" }}>TOGETHER.</span>
           </h2>
-          <p className="reveal d2" style={{ color: "#1e3a5f", lineHeight: 2, fontSize: 13, marginBottom: 32, textAlign: useWidth() <= 900 ? 'center' : 'left' }}>Available for freelance and full-time roles. Have a project? Let's talk.</p>
-          <div className="reveal d3" style={{ display: "flex", gap: "16px", flexWrap: "wrap", marginTop: "10px", justifyContent: useWidth() <= 900 ? 'center' : 'flex-start', marginBottom: useWidth() <= 900 ? '40px' : '0' }}>
-            {LINKS.map(l => {
-              const [h, setH] = useState(false); return (
-                <a key={l.label} href={l.href} target="_blank" rel="noreferrer" onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)} title={l.label}
-                  style={{
-                    display: "flex", justifyContent: "center", alignItems: "center",
-                    width: 56, height: 56, borderRadius: "50%",
-                    background: h ? "rgba(91,168,245,.1)" : "rgba(20,50,100,.2)",
-                    border: `1px solid ${h ? "rgba(91,168,245,.5)" : "rgba(30,58,95,.5)"}`,
-                    color: h ? "#5ba8f5" : "#8ba8c8",
-                    transition: "all .3s ease",
-                    transform: h ? "translateY(-4px)" : "none",
-                    boxShadow: h ? "0 10px 20px rgba(0,0,0,.3)" : "none"
-                  }}>
-                  <l.Icon style={{ fontSize: 24 }} />
-                </a>
-              );
-            })}
+          <p className="reveal d2" style={{ color: "#1e3a5f", lineHeight: 2, fontSize: 13, marginBottom: 32, textAlign: w <= 900 ? 'center' : 'left' }}>Available for freelance and full-time roles. Have a project? Let's talk.</p>
+          <div className="reveal d3" style={{ display: "flex", gap: "16px", flexWrap: "wrap", marginTop: "10px", justifyContent: w <= 900 ? 'center' : 'flex-start', marginBottom: w <= 900 ? '40px' : '0' }}>
+            {LINKS.map(l => <SocialLink key={l.label} l={l} />)}
           </div>
         </div>
         <div className="reveal d2">
