@@ -1,79 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FaGithub, FaLinkedin, FaHackerrank, FaCode } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaHackerrank, FaCode, FaReact, FaJs, FaNodeJs, FaPython, FaHtml5, FaGitAlt, FaChartBar } from "react-icons/fa";
 import { FiMail, FiPhone } from "react-icons/fi";
-
-/* ── Fonts ── */
-const fontLink = document.createElement("link");
-fontLink.rel = "stylesheet";
-fontLink.href = "https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500&display=swap";
-document.head.appendChild(fontLink);
-
-/* ── Global CSS ── */
-const G = document.createElement("style");
-G.textContent = `
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth; scroll-padding-top: 60px;}
-  body{background:#020408;color:#dce8f5;font-family:'JetBrains Mono',monospace;overflow-x:hidden;cursor:none;}
-  @media(max-width:768px){body{cursor:auto;}}
-  ::-webkit-scrollbar{width:3px;}
-  ::-webkit-scrollbar-track{background:#020408;}
-  ::-webkit-scrollbar-thumb{background:#1e3a5f;}
-  a{text-decoration:none;}
-  button{cursor:pointer;}
-
-  @keyframes fadeUp   {from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
-  @keyframes fadeIn   {from{opacity:0}to{opacity:1}}
-  @keyframes pulse    {0%,100%{opacity:.35}50%{opacity:1}}
-  @keyframes marquee  {from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  @keyframes shimmer  {0%{background-position:-400px 0}100%{background-position:400px 0}}
-  @keyframes orb      {0%,100%{transform:scale(1) translate(0,0)}33%{transform:scale(1.1) translate(20px,-15px)}66%{transform:scale(.95) translate(-10px,20px)}}
-  @keyframes scanline {0%{top:-6px}100%{top:100%}}
-  @keyframes drift    {0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-14px) rotate(2deg)}}
-  @keyframes blink    {0%,100%{opacity:1}50%{opacity:0}}
-  @keyframes glitch1  {0%,100%{clip-path:inset(0 0 100% 0);transform:translateX(0)}10%{clip-path:inset(20% 0 60% 0);transform:translateX(-3px)}20%{clip-path:inset(50% 0 20% 0);transform:translateX(3px)}30%{clip-path:inset(80% 0 0 0);transform:translateX(-2px)}}
-  @keyframes glitch2  {0%,100%{clip-path:inset(0 0 100% 0);transform:translateX(0)}10%{clip-path:inset(60% 0 10% 0);transform:translateX(3px)}20%{clip-path:inset(30% 0 50% 0);transform:translateX(-3px)}30%{clip-path:inset(5% 0 80% 0);transform:translateX(2px)}}
-  @keyframes menuDrop {from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
-
-  .reveal{opacity:0;transform:translateY(36px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1);}
-  .reveal.in{opacity:1;transform:none;}
-  .d1{transition-delay:.1s;} .d2{transition-delay:.2s;} .d3{transition-delay:.3s;} .d4{transition-delay:.4s;}
-
-  .shimmer-text{
-    background:linear-gradient(90deg,#4a7fb5 0%,#a8d4f5 40%,#fff 50%,#a8d4f5 60%,#4a7fb5 100%);
-    background-size:400px 100%;
-    -webkit-background-clip:text;background-clip:text;
-    -webkit-text-fill-color:transparent;
-    animation:shimmer 3s linear infinite;
-  }
-
-  /* ── Responsive grid helpers ── */
-  .g2{display:grid;grid-template-columns:1fr 1fr;gap:72px;}
-  .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
-  .gp{display:grid;grid-template-columns:1fr 1fr;gap:3px;}
-  .ga{display:grid;grid-template-columns:repeat(2,1fr);gap:3px;}
-
-  @media(max-width:900px){
-    .g2{grid-template-columns:1fr;gap:44px;}
-    .g3{grid-template-columns:1fr 1fr;}
-    .gp{grid-template-columns:1fr;}
-    .ga{grid-template-columns:1fr;}
-    .wide-card{grid-column:span 1 !important;}
-    .sp{padding:72px 20px !important;}
-    .hp{padding-left:20px !important;padding-right:20px !important;}
-    .hide-mobile{display:none !important;}
-  }
-    .g3{grid-template-columns:1fr;}
-    .sg{grid-template-columns:1fr 1fr !important;}
-    .cert-row{grid-template-columns:56px 1fr !important;}
-    .cert-extra{display:none !important;}
-  }
-  @media(max-width:400px){
-    .hp{padding-left:16px !important;padding-right:16px !important;}
-    .sp{padding-left:16px !important;padding-right:16px !important;}
-    h1{font-size: clamp(20px, 12vw, 130px) !important;}
-  }
-`;
-document.head.appendChild(G);
+import { SiCplusplus, SiMysql, SiMongodb, SiPandas, SiPostman } from "react-icons/si";
+/* Fonts are handled via index.html */
 
 /* ── useReveal ── */
 function useReveal() {
@@ -83,15 +12,17 @@ function useReveal() {
       e => e.forEach(x => {
         if (x.isIntersecting) {
           x.target.classList.add("in");
+          x.target.setAttribute("data-in", "true");
         } else {
           x.target.classList.remove("in");
+          x.target.removeAttribute("data-in");
         }
       }),
       { threshold: 0.08, rootMargin: "0px 0px -30px 0px" }
     );
     els.forEach(el => io.observe(el));
     return () => io.disconnect();
-  });
+  }, []);
 }
 
 /* ── useWidth ── */
@@ -135,11 +66,11 @@ function Cursor() {
     tick();
     return () => { cancelAnimationFrame(raf); document.removeEventListener("mousemove", mv); document.removeEventListener("mousedown", dn); document.removeEventListener("mouseup", up); };
   }, []);
-  const base = { position: "fixed", pointerEvents: "none", zIndex: 9999, transform: "translate(-50%,-50%)" };
+  const base = "fixed pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2";
   return (
     <>
-      <div ref={dot} style={{ ...base, top: 0, left: 0, width: 7, height: 7, borderRadius: "50%", background: "#5ba8f5", boxShadow: "0 0 10px #5ba8f5", transition: "transform .1s" }} />
-      <div ref={ring} style={{ ...base, top: 0, left: 0, width: 36, height: 36, borderRadius: "50%", border: "1px solid rgba(91,168,245,.4)" }} />
+      <div ref={dot} className={`${base} top-0 left-0 w-[7px] h-[7px] rounded-full bg-portfolio-blue shadow-[0_0_10px_#5ba8f5] transition-transform duration-100`} />
+      <div ref={ring} className={`${base} top-0 left-0 w-[36px] h-[36px] rounded-full border border-portfolio-blue/40`} />
     </>
   );
 }
@@ -164,7 +95,7 @@ function Particles() {
     draw();
     return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
   }, []);
-  return <canvas ref={ref} style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none", opacity: .55 }} />;
+  return <canvas ref={ref} className="fixed inset-0 z-0 pointer-events-none opacity-[0.55]" />;
 }
 
 /* ── Nav ── */
@@ -176,6 +107,7 @@ const NAVS = [
   { id: "certificates", label: "Certifications" },
   { id: "achievements", label: "Achievements" },
   { id: "resume", label: "Resume" },
+  { id: "education", label: "Education" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -196,27 +128,27 @@ function Nav({ active }) {
 
   const handleLink = () => { if (isMobile) setOpen(false); };
 
-  const Bar = ({ style }) => (
-    <span style={{ display: "block", width: 22, height: 2, background: "#5ba8f5", borderRadius: 2, transition: "all .28s cubic-bezier(.4,0,.2,1)", ...style }} />
+  const Bar = ({ className }) => (
+    <span className={`block w-[22px] h-[2px] bg-portfolio-blue rounded-[2px] transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${className}`} />
   );
 
   return (
-    <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 300, background: "rgba(6,8,18,.94)", backdropFilter: "blur(18px)", borderBottom: "1px solid rgba(30,58,95,.22)" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0 24px", height: 56, maxWidth: 1200, margin: "0 auto" }}>
-        <a href="#home" onClick={handleLink} style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: 20, letterSpacing: ".06em" }}>
-          <span style={{ color: "#5ba8f5" }}>P</span>
-          <span style={{ color: "#dce8f5" }}>ORTFOLI</span>
-          <span style={{ color: "#1e3a5f" }}>O.</span>
+    <nav className="fixed top-0 left-0 right-0 z-[300] bg-[#060812]/95 backdrop-blur-[18px] border-b border-portfolio-blue/20">
+      <div className="flex justify-between items-center px-6 h-14 max-w-[1200px] mx-auto">
+        <a href="#home" onClick={handleLink} className="font-syne font-extrabold text-xl tracking-wider">
+          <span className="text-portfolio-blue">P</span>
+          <span className="text-portfolio-text">ORTFOLI</span>
+          <span className="text-portfolio-secondary">O.</span>
         </a>
         {!isMobile && (
-          <div style={{ display: "flex", alignItems: "center", gap: 2, background: "rgba(10,18,40,.7)", border: "1px solid rgba(30,60,120,.35)", borderRadius: 10, padding: "4px 6px" }}>
+          <div className="flex items-center gap-0.5 bg-portfolio-dark/70 border border-white/10 rounded-[10px] p-1">
             {NAVS.map(({ id, label }) => {
               const isActive = active === id;
               return (
                 <a key={id} href={`#${id}`}
-                  style={{ display: "block", padding: "7px 15px", borderRadius: 7, fontSize: 12, fontFamily: "'Syne',sans-serif", fontWeight: isActive ? 700 : 500, letterSpacing: ".06em", color: isActive ? "#dce8f5" : "#3a5a80", background: isActive ? "linear-gradient(135deg,#1a3a7a,#2a5aaa)" : "transparent", boxShadow: isActive ? "0 0 18px rgba(42,90,170,.55),inset 0 1px 0 rgba(255,255,255,.05)" : "none", transition: "all .2s", whiteSpace: "nowrap" }}
-                  onMouseEnter={e => { if (!isActive) { e.currentTarget.style.color = "#8bbfe8"; e.currentTarget.style.background = "rgba(30,60,120,.28)"; } }}
-                  onMouseLeave={e => { if (!isActive) { e.currentTarget.style.color = "#3a5a80"; e.currentTarget.style.background = "transparent"; } }}
+                  className={`block px-[15px] py-[7px] rounded-[7px] text-[12px] font-syne tracking-wider transition-all duration-200 whitespace-nowrap ${
+                    isActive ? "font-bold text-portfolio-text bg-gradient-to-br from-[#1a3a7a] to-[#2a5aaa] shadow-[0_0_18px_rgba(42,90,170,0.55)]" : "font-medium text-[#3a5a80] hover:text-[#8bbfe8] hover:bg-white/5"
+                  }`}
                 >
                   {label}
                 </a>
@@ -228,24 +160,26 @@ function Nav({ active }) {
           <button
             onClick={() => setOpen(o => !o)}
             aria-label="Toggle menu"
-            style={{ background: "none", border: "1px solid rgba(30,60,120,.4)", borderRadius: 7, padding: "9px 11px", display: "flex", flexDirection: "column", gap: 5, alignItems: "center", justifyContent: "center", cursor: "pointer", transition: "border-color .2s", borderColor: open ? "rgba(91,168,245,.5)" : "rgba(30,60,120,.4)" }}
+            className={`bg-transparent border rounded-[7px] p-[9px_11px] flex flex-col gap-[5px] items-center justify-center cursor-pointer transition-all duration-200 ${open ? "border-portfolio-blue/50" : "border-white/10"}`}
           >
-            <Bar style={{ transform: open ? "rotate(45deg) translate(0, 7px)" : "none" }} />
-            <Bar style={{ opacity: open ? 0 : 1, transform: open ? "scaleX(0)" : "none" }} />
-            <Bar style={{ transform: open ? "rotate(-45deg) translate(0, -7px)" : "none" }} />
+            <Bar className={open ? "rotate-45 translate-y-[7px]" : ""} />
+            <Bar className={open ? "opacity-0 scale-x-0" : "opacity-100"} />
+            <Bar className={open ? "-rotate-45 -translate-y-[7px]" : ""} />
           </button>
         )}
       </div>
       {isMobile && open && (
-        <div style={{ background: "rgba(4,8,20,.98)", borderTop: "1px solid rgba(20,50,100,.3)", animation: "menuDrop .22s ease both", overflow: "hidden" }}>
+        <div className="bg-[#040814]/98 border-t border-white/10 animate-[menuDrop_0.22s_ease_both] overflow-hidden">
           {NAVS.map(({ id, label }) => {
             const isActive = active === id;
             return (
               <a key={id} href={`#${id}`} onClick={handleLink}
-                style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "15px 24px", borderBottom: "1px solid rgba(20,50,100,.15)", color: isActive ? "#5ba8f5" : "#4a6a90", background: isActive ? "rgba(20,50,120,.18)" : "transparent", fontFamily: "'Syne',sans-serif", fontWeight: isActive ? 700 : 500, fontSize: 14, letterSpacing: ".05em", borderLeft: isActive ? "3px solid #5ba8f5" : "3px solid transparent", transition: "all .15s" }}
+                className={`flex items-center justify-between px-6 py-[15px] border-b border-white/5 font-syne text-[14px] tracking-wide transition-all duration-150 border-l-[3px] ${
+                  isActive ? "text-portfolio-blue bg-portfolio-blue/10 font-bold border-l-portfolio-blue" : "text-[#4a6a90] font-medium border-l-transparent"
+                }`}
               >
                 <span>{label}</span>
-                {isActive && <span style={{ fontSize: 10, color: "#5ba8f5" }}>●</span>}
+                {isActive && <span className="text-[10px] text-portfolio-blue">●</span>}
               </a>
             );
           })}
@@ -258,15 +192,15 @@ function Nav({ active }) {
 /* ── Shared helpers ── */
 function SectionTag({ children }) {
   return (
-    <div className="reveal" style={{ fontSize: 10, letterSpacing: ".3em", textTransform: "uppercase", color: "#3a6a9a", display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
-      <span style={{ width: 32, height: 1, background: "linear-gradient(to right,#5ba8f5,transparent)", display: "inline-block" }} />
+    <div className="reveal flex items-center gap-3 mb-3.5 text-[10px] tracking-[0.3em] uppercase text-[#3a6a9a]">
+      <span className="inline-block w-8 h-[1px] bg-gradient-to-r from-portfolio-blue to-transparent" />
       {children}
     </div>
   );
 }
 function SectionTitle({ children }) {
   return (
-    <h2 className="reveal d1" style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: "clamp(28px,4.5vw,62px)", color: "#dce8f5", lineHeight: 1.05, marginBottom: 44 }}>
+    <h2 className="reveal d1 font-syne font-extrabold text-[clamp(28px,4.5vw,62px)] text-portfolio-text leading-[1.05] mb-11">
       {children}
     </h2>
   );
@@ -274,8 +208,15 @@ function SectionTitle({ children }) {
 function HoverBtn({ href, primary, children }) {
   const [hov, setHov] = useState(false);
   return (
-    <a href={href} onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
-      style={{ display: "inline-block", padding: primary ? "12px 28px" : "12px 4px", fontFamily: "'Syne',sans-serif", fontWeight: 700, fontSize: 11, letterSpacing: ".14em", textTransform: "uppercase", background: primary ? (hov ? "#3a7abf" : "#1e4a8f") : "transparent", color: primary ? "#dce8f5" : (hov ? "#dce8f5" : "#2a4a6a"), border: primary ? "1px solid rgba(91,168,245,.3)" : "none", boxShadow: primary && hov ? "0 0 24px rgba(30,74,143,.6)" : primary ? "0 0 10px rgba(30,74,143,.25)" : "none", transition: "all .25s", transform: primary && hov ? "translateY(-2px)" : "none" }}>
+    <a href={href} 
+       onMouseEnter={() => setHov(true)} 
+       onMouseLeave={() => setHov(false)}
+       className={`inline-block font-syne font-bold text-[11px] tracking-[0.14em] uppercase transition-all duration-200 border border-transparent ${
+         primary 
+         ? `px-7 py-3 ${hov ? "bg-[#3a7abf] shadow-[0_0_24px_rgba(30,74,143,0.6)] -translate-y-[2px]" : "bg-[#1e4a8f] shadow-[0_0_10px_rgba(30,74,143,0.25)]"} text-portfolio-text border-portfolio-blue/30` 
+         : `px-1 py-3 ${hov ? "text-portfolio-text" : "text-[#2a4a6a]"}`
+       }`}
+    >
       {children}
     </a>
   );
@@ -286,11 +227,11 @@ const MARKS = ["Frontend Dev", "UI/UX Design", "React", "Node.js", "Full Stack",
 function Marquee() {
   const items = [...MARKS, ...MARKS];
   return (
-    <div style={{ overflow: "hidden", borderTop: "1px solid rgba(20,50,100,.4)", borderBottom: "1px solid rgba(20,50,100,.4)", padding: "12px 0", background: "rgba(5,10,20,.8)", position: "relative", zIndex: 10 }}>
-      <div style={{ display: "flex", width: "max-content", animation: "marquee 24s linear infinite" }}>
+    <div className="overflow-hidden border-y border-white/10 py-3 bg-portfolio-dark/80 relative z-10">
+      <div className="flex w-max animate-marquee">
         {items.map((it, i) => (
-          <span key={i} style={{ display: "flex", alignItems: "center", gap: 18, paddingRight: 32, fontFamily: "'Syne',sans-serif", fontWeight: 700, fontSize: 11, letterSpacing: ".1em", textTransform: "uppercase", color: i % 5 === 2 ? "#5ba8f5" : "#1a3050", whiteSpace: "nowrap" }}>
-            {it} <span style={{ color: "#1e3a5f", opacity: .7 }}>◆</span>
+          <span key={i} className={`flex items-center gap-[18px] pr-8 font-syne font-bold text-[11px] tracking-[0.1rem] uppercase whitespace-nowrap ${i % 5 === 2 ? "text-portfolio-blue" : "text-[#1a3050]"}`}>
+            {it} <span className="text-portfolio-secondary opacity-70">◆</span>
           </span>
         ))}
       </div>
@@ -298,12 +239,13 @@ function Marquee() {
   );
 }
 
-/* ── Hero ── */
+const HERO_PHRASES = ["Full Stack Developer", "Data Science Enthusiast"];
 function Hero() {
   const [step, setStep] = useState(0);
   const [typed, setTyped] = useState("");
+  const [phraseIdx, setPhraseIdx] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
   const w = useWidth();
-  const full = "Full Stack Developer";
 
   useEffect(() => {
     const el = document.getElementById("home");
@@ -326,78 +268,99 @@ function Hero() {
   useEffect(() => {
     if (step < 3) {
       setTyped("");
+      setPhraseIdx(0);
+      setIsDeleting(false);
       return;
     }
-    let i = 0;
-    const iv = setInterval(() => { 
-      setTyped(full.slice(0, ++i)); 
-      if (i >= full.length) clearInterval(iv); 
-    }, 65);
-    return () => clearInterval(iv);
-  }, [step]);
+    const current = HERO_PHRASES[phraseIdx];
+    let timeout;
+    if (!isDeleting && typed === current) {
+      timeout = setTimeout(() => setIsDeleting(true), 2000);
+    } else if (isDeleting && typed === "") {
+      setPhraseIdx(p => (p + 1) % HERO_PHRASES.length);
+      setIsDeleting(false);
+    } else {
+      timeout = setTimeout(() => {
+        setTyped(current.slice(0, typed.length + (isDeleting ? -1 : 1)));
+      }, isDeleting ? 30 : 65);
+    }
+    return () => clearTimeout(timeout);
+  }, [step, typed, isDeleting, phraseIdx]);
 
-  const show = (n, style, children) => step >= n ? <div style={{ animation: "fadeUp .8s ease both", ...style }}>{children}</div> : null;
+  const show = (n, className, children) => step >= n ? <div className={`animate-fade-up ${className}`}>{children}</div> : null;
 
   return (
-    <section id="home" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", position: "relative", overflow: "hidden", padding: "80px 52px 40px" }} className="hp">
+    <section id="home" className="min-h-screen flex flex-col justify-center relative overflow-hidden px-5 md:px-[52px] py-20">
       {[{ top: "15%", left: "60%", w: 480, c: "rgba(10,30,80,.6)" }, { top: "55%", left: "5%", w: 320, c: "rgba(5,20,60,.5)" }, { top: "70%", left: "70%", w: 260, c: "rgba(15,35,90,.4)" }].map((o, i) => (
-        <div key={i} style={{ position: "absolute", top: o.top, left: o.left, width: o.w, height: o.w, borderRadius: "50%", background: `radial-gradient(circle,${o.c} 0%,transparent 70%)`, animation: `orb ${12 + i * 3}s ease-in-out infinite`, animationDelay: `${i * 2}s`, pointerEvents: "none" }} />
+        <div key={i} className="absolute rounded-full pointer-events-none" 
+             style={{ top: o.top, left: o.left, width: o.w, height: o.w, background: `radial-gradient(circle,${o.c} 0%,transparent 70%)`, animation: `orb ${12 + i * 3}s ease-in-out infinite`, animationDelay: `${i * 2}s` }} />
       ))}
-      <div style={{ position: "absolute", left: 0, right: 0, height: 2, background: "linear-gradient(90deg,transparent,rgba(91,168,245,.1),transparent)", animation: "scanline 8s linear infinite", pointerEvents: "none", zIndex: 1 }} />
-      <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(30,58,95,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(30,58,95,.06) 1px,transparent 1px)", backgroundSize: "48px 48px", pointerEvents: "none" }} />
+      <div className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-portfolio-blue/10 to-transparent animate-[scanline_8s_linear_infinite] pointer-events-none z-[1]" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(30,58,95,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(30,58,95,0.06)_1px,transparent_1px)] bg-[length:48px_48px] pointer-events-none" />
 
-       <div style={{ position: "relative", zIndex: 2, maxWidth: 900, textAlign: w <= 900 ? 'center' : 'left' }}>
+       <div className={`relative z-10 max-w-[900px] ${w <= 900 ? 'text-center' : 'text-left'}`}>
         {step >= 2 && (
-          <div style={{ position: "relative", marginBottom: 4, width: '100%', display: 'flex', justifyContent: w <= 900 ? 'center' : 'flex-start' }}>
-            <h1 style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: "clamp(24px, 10vw, 130px)", whiteSpace: "nowrap", lineHeight: .88, letterSpacing: "-.02em", color: "transparent", position: "absolute", top: 0, left: w <= 900 ? "50%" : 0, transform: w <= 900 ? "translateX(-50%)" : "none", WebkitTextStroke: "1px rgba(91,168,245,.1)", animation: "glitch1 6s steps(1) infinite 2s", pointerEvents: "none", userSelect: "none" }}>HI I AM KUNAL</h1>
-            <h1 style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: "clamp(24px, 10vw, 130px)", whiteSpace: "nowrap", lineHeight: .88, letterSpacing: "-.02em", color: "transparent", position: "absolute", top: 0, left: w <= 900 ? "50%" : 0, transform: w <= 900 ? "translateX(-50%)" : "none", WebkitTextStroke: "1px rgba(150,210,255,.07)", animation: "glitch2 6s steps(1) infinite 2.3s", pointerEvents: "none", userSelect: "none" }}>HI I AM KUNAL</h1>
-            <h1 style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: "clamp(24px, 10vw, 130px)", whiteSpace: "nowrap", lineHeight: .88, letterSpacing: "-.02em", animation: "fadeUp .9s ease .2s both" }}>
-              <span style={{ background: "linear-gradient(135deg,#dce8f5 0%,#8bbfe8 50%,#3a7abf 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>HI I AM KUNAL</span>
-            </h1>
+          <div className={`relative mb-6 w-full flex flex-col ${w <= 900 ? 'items-center' : 'items-start'}`}>
+            <h2 className={`font-syne font-bold text-[clamp(18px,4vw,36px)] leading-[1.2] text-[#8bbfe8] mb-1 animate-[fadeUp_0.9s_ease_0.1s_both] tracking-[0.2em] relative z-20 ${w <= 900 ? 'text-center' : 'text-left'}`}>
+              HI, I AM
+            </h2>
+            <div className={`relative w-full flex ${w <= 900 ? 'justify-center' : 'justify-start'}`}>
+              <h1 className={`font-syne font-extrabold text-[clamp(60px,13vw,160px)] whitespace-nowrap leading-[0.88] tracking-[-0.02em] text-transparent absolute top-0 outline-px outline-[#5ba8f5]/10 animate-[glitch1_6s_steps(1)_infinite_2s] pointer-events-none select-none ${w <= 900 ? 'left-1/2 -translate-x-1/2' : 'left-0 translate-x-0'}`} style={{ WebkitTextStroke: "2px rgba(91,168,245,.15)" }}>KUNAL</h1>
+              <h1 className={`font-syne font-extrabold text-[clamp(60px,13vw,160px)] whitespace-nowrap leading-[0.88] tracking-[-0.02em] text-transparent absolute top-0 outline-px outline-[#96d2ff]/7 animate-[glitch2_6s_steps(1)_infinite_2.3s] pointer-events-none select-none ${w <= 900 ? 'left-1/2 -translate-x-1/2' : 'left-0 translate-x-0'}`} style={{ WebkitTextStroke: "2px rgba(150,210,255,.1)" }}>KUNAL</h1>
+              <h1 className="font-syne font-extrabold text-[clamp(60px,13vw,160px)] whitespace-nowrap leading-[0.88] tracking-[-0.02em] animate-[fadeUp_0.9s_ease_0.2s_both]">
+                <span className="bg-gradient-to-br from-[#ffffff] via-[#8bbfe8] to-[#3a7abf] bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(91,168,245,0.35)]">KUNAL</span>
+              </h1>
+            </div>
           </div>
         )}
         {step >= 2 && (
-          <h1 style={{ fontFamily: "'Instrument Serif',serif", fontStyle: "italic", fontWeight: 400, fontSize: "clamp(24px, 8vw, 120px)", whiteSpace: "nowrap", lineHeight: .88, marginBottom: 28, animation: "fadeUp .9s ease .35s both", overflow: "hidden" }}>
-            <span className="shimmer-text">{typed}<span style={{ animation: "blink 1s step-end infinite", color: "#5ba8f5" }}>|</span></span>
+          <h1 className="font-serif italic font-normal text-[clamp(16px,4.5vw,100px)] whitespace-nowrap overflow-hidden leading-[0.88] mb-7 animate-[fadeUp_0.9s_ease_0.35s_both]">
+            <span className="shimmer-text">{typed}<span className="inline-block animate-[blink_1s_step-end_infinite] text-portfolio-blue">|</span></span>
           </h1>
         )}
-        {show(3, { maxWidth: w <= 900 ? "100%" : 460, fontSize: 13, color: "#2a4a6a", lineHeight: 1.9, marginBottom: 40, marginInline: w <= 900 ? "auto" : "0" },
-          <>Building <span style={{ color: "#8bbfe8" }}>digital experiences</span> at the intersection of design and code. Obsessed with performance, motion, and craft.</>
+        {show(3, `max-w-full md:max-w-[460px] text-[13px] text-[#2a4a6a] leading-[1.9] mb-10 ${w <= 900 ? "mx-auto" : "mx-0"}`,
+          <>Building <span className="text-[#8bbfe8]">digital experiences</span> at the intersection of design and code. Obsessed with performance, motion, and craft.</>
         )}
-        {show(4, { display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap", justifyContent: w <= 900 ? 'center' : 'flex-start' },
+        {show(4, `flex gap-4 items-center flex-wrap ${w <= 900 ? 'justify-center' : 'justify-start'}`,
           <><HoverBtn href="#projects" primary>View Work</HoverBtn><HoverBtn href="#contact">Let's Talk →</HoverBtn></>
         )}
       </div>
-      {step >= 5 && <div style={{ position: "absolute", bottom: -50, right: -10, fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: "clamp(70px,14vw,240px)", color: "transparent", WebkitTextStroke: "1px rgba(20,50,100,.13)", pointerEvents: "none", userSelect: "none", animation: "fadeIn 2s ease both", lineHeight: 1 }}>DEV</div>}
-      <div style={{ position: "absolute", bottom: 24, left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 8, color: "#1e3a5f", fontSize: 10, letterSpacing: ".25em", textTransform: "uppercase", animation: "fadeIn 1s ease 2s both" }}>
-        <div style={{ width: 1, height: 36, background: "linear-gradient(to bottom,#5ba8f5,transparent)", animation: "pulse 2s infinite" }} />
+      {step >= 5 && <div className="absolute -bottom-[50px] -right-[10px] font-syne font-extrabold text-[clamp(70px,14vw,240px)] text-transparent animate-fade-in pointer-events-none select-none leading-none" style={{ WebkitTextStroke: "1px rgba(20,50,100,.13)" }}>DEV</div>}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-portfolio-secondary text-[10px] tracking-[0.25em] uppercase animate-[fadeIn_1s_ease_2s_both]">
+        <div className="w-[1px] h-9 bg-gradient-to-b from-portfolio-blue to-transparent animate-pulse" />
         Scroll
       </div>
     </section>
   );
 }
 
-/* ── About ── */
 function About() {
+  const w = useWidth();
   return (
-    <section id="about" className="sp" style={{ padding: "96px 52px", position: "relative" }}>
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg,transparent,rgba(5,12,30,.4) 50%,transparent)", pointerEvents: "none" }} />
-      <div className="g2" style={{ alignItems: "center", position: "relative", zIndex: 2 }}>
+    <section id="about" className="px-5 md:px-[52px] py-24 relative">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-portfolio-blue/5 to-transparent pointer-events-none" />
+      <div className={`grid ${w <= 900 ? 'grid-cols-1 gap-11' : 'grid-cols-2 gap-[72px]'} items-center relative z-10`}>
         <div>
           <SectionTag>About Me</SectionTag>
-          <SectionTitle>Crafting the <span style={{ color: "#5ba8f5", textShadow: "0 0 18px rgba(91,168,245,.3)" }}>future</span><br />one pixel at a time</SectionTitle>
-          <div className="reveal d2" style={{ color: "#2a4a6a", lineHeight: 2.1, fontSize: 13 }}>
-            <p>I'm a <span style={{ color: "#8bbfe8" }}>full-stack developer</span> obsessed with building products that look great and work perfectly.</p>
-            <p style={{ marginTop: 18 }}>I bridge the gap between design and robust backend systems.</p>
+          <div className="reveal d2 text-[#3a5a80] leading-[2.1] text-[13.5px] mt-6">
+            <p>
+              I am a <span className="text-portfolio-text font-bold">3rd-year Computer Science Engineering student</span> with a strong interest in building scalable, real-world applications using the <span className="text-[#8bbfe8] font-bold">MERN stack</span>, along with a growing focus on integrating <span className="text-portfolio-blue font-bold">AI and Machine Learning</span> into modern systems.
+            </p>
+            <p className="mt-[18px]">
+              I enjoy solving complex problems and have developed a solid foundation in <span className="text-portfolio-text font-bold">Data Structures and Algorithms</span>, which helps me write efficient, optimized, and reliable code.
+            </p>
+            <p className="mt-[18px]">
+              With hands-on experience in full-stack development, I have worked on multiple projects that reflect my ability to design, develop, and deploy end-to-end applications. I am continuously learning new technologies and striving to build <span className="text-[#8bbfe8] font-bold">impactful, user-centric solutions.</span>
+            </p>
           </div>
         </div>
-        <div className="reveal d2" style={{ position: "relative", display: "flex", justifyContent: "center" }}>
-          <div style={{ padding: "8px", background: "linear-gradient(135deg,rgba(91,168,245,.2),rgba(10,24,48,.5))", borderRadius: "50%", position: "relative" }}>
-            <div style={{ width: "min(280px, 70vw)", aspectRatio: "1/1", borderRadius: "50%", background: "#050f20", border: "1px solid rgba(91,168,245,.3)", position: "relative", overflow: "hidden", boxShadow: "0 10px 40px rgba(0,0,0,0.6)" }}>
-              <img src="/profile.jpg" alt="Kunal" style={{ width: "100%", height: "135%", objectFit: "cover", objectPosition: "center 15%", display: "block" }} />
+        <div className="reveal d2 relative flex justify-center">
+          <div className="p-2 bg-gradient-to-br from-portfolio-blue/20 to-white/5 rounded-full relative">
+            <div className="w-[min(280px,70vw)] aspect-square rounded-full bg-[#050f20] border border-portfolio-blue/30 relative overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.6)]">
+              <img src="/profile.jpg" alt="Kunal" className="w-full h-[135%] object-cover object-[center_15%] block" />
             </div>
           </div>
-          <div style={{ position: "absolute", bottom: "0%", right: "8%", width: 60, height: 60, borderRadius: "50%", border: "1px solid rgba(91,168,245,.4)", zIndex: -1, animation: "drift 5s ease-in-out infinite" }} />
+          <div className="absolute -bottom-0 right-[8%] w-[60px] h-[60px] rounded-full border border-portfolio-blue/40 z-[-1] animate-drift" />
         </div>
       </div>
     </section>
@@ -405,42 +368,47 @@ function About() {
 }
 
 const SKILLS_DATA = [
-  { name: "React / Next.js", color: "#61DAFB" }, { name: "JavaScript/TS", color: "#F7DF1E" },
-  { name: "Node.js/Express", color: "#8CC84B" }, { name: "Python", color: "#3776AB" },
-  { name: "C++ / DSA", color: "#00599C" }, { name: "HTML & CSS", color: "#E34F26" },
-  { name: "SQL & MySQL", color: "#00758F" }, { name: "MongoDB", color: "#47A248" },
-  { name: "Power BI / Excel", color: "#F2C811" }, { name: "Pandas & NumPy", color: "#150458" },
-  { name: "Git / DevOps", color: "#F05032" }, { name: "Postman / Resend", color: "#FF6C37" }
+  { name: "React / Next.js", color: "#61DAFB", icon: FaReact }, 
+  { name: "JavaScript/TS", color: "#F7DF1E", icon: FaJs },
+  { name: "Node.js/Express", color: "#8CC84B", icon: FaNodeJs }, 
+  { name: "Python", color: "#3776AB", icon: FaPython },
+  { name: "C++ / DSA", color: "#00599C", icon: SiCplusplus }, 
+  { name: "HTML & CSS", color: "#E34F26", icon: FaHtml5 },
+  { name: "SQL & MySQL", color: "#00758F", icon: SiMysql }, 
+  { name: "MongoDB", color: "#47A248", icon: SiMongodb },
+  { name: "Power BI / Excel", color: "#F2C811", icon: FaChartBar }, 
+  { name: "Pandas & NumPy", color: "#150458", icon: SiPandas },
+  { name: "Git / DevOps", color: "#F05032", icon: FaGitAlt }, 
+  { name: "Postman / Resend", color: "#FF6C37", icon: SiPostman }
 ];
 
-function SkillCard({ name, color, i }) {
+function SkillCard({ name, color, icon: Icon, i }) {
   const [h, setH] = useState(false);
   return (
-    <div className={`reveal d${Math.min((i % 4) + 1, 4)}`} onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
-      style={{
-        padding: "20px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-        background: h ? `linear-gradient(135deg, rgba(5,15,40,0.9), rgba(10,30,60,0.8))` : "rgba(5,12,30,.5)",
-        border: `1px solid ${h ? color : "rgba(30,58,95,.3)"}`,
-        borderRadius: "16px", transition: "all .3s cubic-bezier(0.4, 0, 0.2, 1)",
-        transform: h ? "translateY(-6px)" : "none",
-        boxShadow: h ? `0 10px 25px ${color}30` : "none", gap: "12px",
-        cursor: "none"
-      }}>
-      <div style={{ width: "40px", height: "40px", borderRadius: "50%", background: `${color}15`, display: "flex", alignItems: "center", justifyContent: "center", border: `1px solid ${color}40`, transition: "all 0.3s" }}>
-        <div style={{ width: "16px", height: "16px", borderRadius: "50%", background: color, boxShadow: h ? `0 0 15px ${color}` : "none" }} />
+    <div className={`reveal d${Math.min((i % 4) + 1, 4)} flex flex-col items-center justify-center gap-3.5 cursor-none`}
+      onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
+    >
+      <div className={`w-[85px] h-[85px] rounded-full flex items-center justify-center transition-all duration-300 border-[1.5px]`} 
+           style={{ 
+             background: h ? `${color}15` : '#050c1e50',
+             borderColor: h ? color : 'rgba(255,255,255,0.08)', 
+             boxShadow: h ? `0 0 25px ${color}40` : "none",
+             transform: h ? 'translateY(-6px)' : 'none'
+           }}>
+        {Icon ? <Icon className="text-[38px] transition-all duration-300" style={{ color: h ? '#ffffff' : color, filter: h ? `drop-shadow(0 0 8px ${color})` : 'none' }} /> : <div className="w-4 h-4 rounded-full" style={{ background: color }} />}
       </div>
-      <span style={{ fontSize: "14px", color: h ? "#fff" : "#8ba8c8", fontFamily: "'Syne',sans-serif", fontWeight: 700, letterSpacing: "0.5px", textAlign: "center", transition: "color 0.3s" }}>{name}</span>
+      <span className={`text-[13px] font-syne font-bold tracking-[0.5px] text-center transition-colors duration-300 ${h ? "text-white" : "text-[#8ba8c8]"}`}>{name}</span>
     </div>
   );
 }
 
 function Skills() {
   return (
-    <section id="skills" className="sp" style={{ padding: "96px 52px", background: "rgba(3,7,18,.6)", position: "relative" }}>
+    <section id="skills" className="px-5 md:px-[52px] py-24 bg-[#030712]/60 relative">
       <SectionTag>What I Do</SectionTag>
-      <SectionTitle>Technical <span style={{ color: "#5ba8f5", textShadow: "0 0 18px rgba(91,168,245,.3)" }}>Skills</span></SectionTitle>
+      <SectionTitle>Technical <span className="text-portfolio-blue shadow-blue-500/30 shadow-[0_0_18px]">Skills</span></SectionTitle>
 
-      <div className="reveal d1" style={{ width: "100%", margin: "40px 0 0", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(clamp(150px, 45vw, 220px), 1fr))", gap: "16px" }}>
+      <div className="reveal d1 w-full mt-12 grid grid-cols-2 min-[450px]:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-y-10 gap-x-4">
         {SKILLS_DATA.map((s, i) => <SkillCard key={s.name} {...s} i={i} />)}
       </div>
     </section>
@@ -451,44 +419,42 @@ function Skills() {
 const PROJECTS = [
   { num: "01", title: "E-Commerce Platform", desc: "Full MERN stack store with Stripe payments and custom admin panel.", tags: ["React", "Node.js", "MongoDB", "Stripe"], grad: "linear-gradient(135deg,#040d20,#071530)", accent: "#5ba8f5", image: "/ecommerce.png" },
   { num: "02", title: "Chat System", desc: "Real-time task management using modern WebSockets for instant updates.", tags: ["Next.js", "Socket.io", "Tailwind"], grad: "linear-gradient(135deg,#060816,#0c1228)", accent: "#8bbfe8", image: "/chats.png" },
-  { num: "03", title: "Customer Churn Prediction", desc: "Web Wrapper for latest AI APIs to quickly generate variations.", tags: ["React", "OpenAI", "Express"], grad: "linear-gradient(135deg,#030a1a,#080f22)", accent: "#3a7abf", wide: true },
+  { num: "03", title: "Customer Churn Prediction", desc: "Web Wrapper for latest AI APIs to quickly generate variations.", tags: ["React", "OpenAI", "Express"], grad: "linear-gradient(135deg,#030a1a,#080f22)", accent: "#3a7abf", image: "/churn-new.png" },
+  { num: "04", title: "Laptop Performance Prediction", desc: "Machine learning model predicting laptop performance metrics based on hardware specifications.", tags: ["Python", "Pandas", "NumPy", "ML"], grad: "linear-gradient(135deg,#050f2a,#0f2a50)", accent: "#8bbfe8", image: "/laptop-perf.png" },
 ];
 function ProjectCard({ p, i }) {
   const [hov, setHov] = useState(false);
+  const w = useWidth();
   return (
-    <div className={`reveal d${i + 1}${p.wide ? " wide-card" : ""}`}
+    <div className={`reveal d${i + 1} relative overflow-hidden transition-all duration-300 border ${hov ? "shadow-[0_0_36px_rgba(30,80,160,0.22)]" : "shadow-none"} ${p.wide && w > 900 ? "col-span-2 aspect-[21/8]" : "col-span-1 aspect-[16/10]"}`}
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
       style={{ 
-        position: "relative", 
         background: p.image ? `url(${p.image}) center/cover` : p.grad, 
-        border: `1px solid ${hov ? p.accent + "50" : "rgba(20,50,100,.3)"}`, 
-        overflow: "hidden", 
-        aspectRatio: p.wide ? "21/8" : "16/10", 
-        gridColumn: p.wide ? "span 2" : "span 1", 
-        transition: "border-color .3s,box-shadow .3s", 
-        boxShadow: hov ? `0 0 36px rgba(30,80,160,.22)` : "none" 
+        borderColor: hov ? p.accent + "80" : "rgba(20,50,100,0.3)"
       }}>
-      <div style={{ position: "absolute", inset: 0, background: p.image ? `rgba(2,4,8,0.6)` : `radial-gradient(circle at ${p.wide ? "50% 60%" : "70% 30%"},${p.accent}18 0%,transparent 60%)`, opacity: hov ? 1 : .4, transition: "opacity .5s" }} />
-      {hov && <div style={{ position: "absolute", left: 0, right: 0, height: 1, background: `linear-gradient(90deg,transparent,${p.accent}40,transparent)`, animation: "scanline 2s linear infinite", pointerEvents: "none" }} />}
-      <span style={{ position: "absolute", top: 12, right: 16, fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: 44, color: `${p.accent}08` }}>{p.num}</span>
-      <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: 22, background: "linear-gradient(to top,rgba(2,4,8,.94) 0%,transparent 55%)" }}>
-        <div style={{ display: "flex", gap: 6, marginBottom: 7, flexWrap: "wrap" }}>
-          {p.tags.map(t => <span key={t} style={{ fontSize: 9, letterSpacing: ".18em", textTransform: "uppercase", color: p.accent, border: `1px solid ${p.accent}35`, padding: "2px 8px", background: `${p.accent}08` }}>{t}</span>)}
+      <div className={`absolute inset-0 transition-opacity duration-500 ${hov ? "opacity-100" : "opacity-40"}`} 
+           style={{ background: p.image ? `rgba(2,4,8,0.6)` : `radial-gradient(circle at ${p.wide ? "50% 60%" : "70% 30%"},${p.accent}18 0%,transparent 60%)` }} />
+      {hov && <div className="absolute left-0 right-0 h-[1px] animate-[scanline_2s_linear_infinite] pointer-events-none" style={{ background: `linear-gradient(90deg,transparent,${p.accent}40,transparent)` }} />}
+      <span className="absolute top-3 right-4 font-syne font-extrabold text-[44px]" style={{ color: `${p.accent}14` }}>{p.num}</span>
+      <div className="absolute inset-0 flex flex-col justify-end p-[22px] bg-gradient-to-t from-[#020408]/95 via-transparent to-transparent">
+        <div className="flex gap-1.5 mb-[7px] flex-wrap">
+          {p.tags.map(t => <span key={t} className="text-[9px] tracking-[0.18em] uppercase px-2 py-0.5" style={{ color: p.accent, border: `1px solid ${p.accent}35`, background: `${p.accent}08` }}>{t}</span>)}
         </div>
-        <div style={{ fontFamily: "'Instrument Serif',serif", fontSize: 20, color: "#dce8f5", marginBottom: 4 }}>{p.title}</div>
-        <p style={{ fontSize: 11, color: "#1e3a5f", lineHeight: 1.7 }}>{p.desc}</p>
+        <div className="font-serif text-xl text-portfolio-text mb-1">{p.title}</div>
+        <p className="text-[11px] text-[#1e3a5f] leading-[1.7]">{p.desc}</p>
       </div>
     </div>
   );
 }
+
 function Projects() {
   return (
-    <section id="projects" className="sp" style={{ padding: "96px 52px" }}>
+    <section id="projects" className="px-5 md:px-[52px] py-16">
       <SectionTag>Selected Work</SectionTag>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 12, marginBottom: 40 }}>
+      <div className="flex justify-between items-end flex-wrap gap-3 mb-10">
         <SectionTitle>Projects</SectionTitle>
       </div>
-      <div className="gp">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-[3px]">
         {PROJECTS.map((p, i) => <ProjectCard key={p.num} p={p} i={i} />)}
       </div>
     </section>
@@ -499,31 +465,36 @@ function Projects() {
 const CERTS = [
   { year: "2025", name: "Full Stack Web Development", issuer: "Professional Certificate", badge: "Active", color: "#5ba8f5" },
   { year: "2024", name: "Complete Python Bootcamp", issuer: "Udemy", badge: "Active", color: "#8bbfe8" },
+  { year: "2024", name: "Cloud Computing", issuer: "NPTEL", badge: "Active", color: "#3a7abf" },
 ];
 function CertCard({ c, i }) {
   const [h, setH] = useState(false);
   const w = useWidth();
   return (
-    <div key={c.name} className={`reveal d${Math.min(i + 1, 4)} cert-row`}
+    <div key={c.name} 
+      className={`reveal d${Math.min(i + 1, 4)} grid items-center transition-all duration-[0.25s] border-l-2 ${
+        w <= 560 ? "grid-cols-[50px_1fr] gap-x-2.5 gap-y-3.5 p-[15px_18px]" : "grid-cols-[60px_1fr_auto_auto] gap-x-3.5 gap-y-[18px] p-[19px_22px]"
+      } ${h ? "bg-[#0a193c]/50 border-l-portfolio-blue translate-x-1" : "bg-[#050c1e]/50 border-l-white/10 translate-x-0"}`}
       onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
-      style={{ display: "grid", gridTemplateColumns: w <= 560 ? "50px 1fr" : "60px 1fr auto auto", gap: w <= 560 ? "10px 15px" : "14px 18px", alignItems: "center", padding: w <= 560 ? "15px 18px" : "19px 22px", background: h ? "rgba(10,25,60,.5)" : "rgba(5,12,30,.5)", borderLeft: `2px solid ${h ? c.color : "rgba(20,50,100,.3)"}`, transform: h ? "translateX(5px)" : "none", transition: "all .25s" }}>
-      <div style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: w <= 560 ? 16 : 20, color: h ? c.color : "#1e3a5f", transition: "color .2s" }}>{c.year}</div>
+      style={{ borderLeftColor: h ? c.color : "rgba(20,50,100,0.3)" }}
+    >
+      <div className="font-syne font-extrabold transition-colors duration-200" style={{ fontSize: w <= 560 ? 16 : 20, color: h ? c.color : "#1e3a5f" }}>{c.year}</div>
       <div>
-        <div style={{ fontFamily: "'Instrument Serif',serif", fontSize: w <= 560 ? 14 : 16, color: "#dce8f5" }}>{c.name}</div>
-        <div style={{ fontSize: 10, color: "#1a3050", marginTop: 2 }}>{c.issuer}</div>
+        <div className="font-serif text-portfolio-text" style={{ fontSize: w <= 560 ? 14 : 16 }}>{c.name}</div>
+        <div className="text-[10px] text-[#1a3050] mt-0.5">{c.issuer}</div>
       </div>
-      <span className="cert-extra" style={{ fontSize: 9, letterSpacing: ".18em", textTransform: "uppercase", color: c.color, border: `1px solid ${c.color}35`, padding: "2px 9px", whiteSpace: "nowrap" }}>{c.badge}</span>
-      <span className="cert-extra" style={{ color: h ? "#5ba8f5" : "#1a3050", fontSize: 14, transform: h ? "translateX(3px)" : "none", transition: "all .2s" }}>→</span>
+      <span className="hidden md:inline-block text-[9px] tracking-[0.18em] uppercase px-2.5 py-0.5 whitespace-nowrap" style={{ color: c.color, border: `1px solid ${c.color}35` }}>{c.badge}</span>
+      <span className={`hidden md:inline-block text-sm transition-transform duration-200 ${h ? "text-[#5ba8f5] translate-x-1" : "text-[#1a3050]"}`}>→</span>
     </div>
   );
 }
 
 function Certificates() {
   return (
-    <section id="certificates" className="sp" style={{ padding: "96px 52px" }}>
+    <section id="certificates" className="px-5 md:px-[52px] py-16">
       <SectionTag>Credentials</SectionTag>
-      <SectionTitle>Certifi<span style={{ color: "#5ba8f5", textShadow: "0 0 18px rgba(91,168,245,.3)" }}>cations</span></SectionTitle>
-      <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      <SectionTitle>Certifi<span className="text-portfolio-blue shadow-blue-500/30 shadow-[0_0_18px]">cations</span></SectionTitle>
+      <div className="flex flex-col gap-0.5">
         {CERTS.map((c, i) => <CertCard key={c.name} c={c} i={i} />)}
       </div>
     </section>
@@ -531,25 +502,27 @@ function Certificates() {
 }
 
 const ACHIEVEMENTS = [
-  { icon: "💻", title: "500+ DSA Questions Solved", org: "LeetCode & GeeksForGeeks", desc: "Demonstrated strong algorithmic and problem-solving skills across major competitive programming platforms.", year: "2024" },
-  { icon: "🏆", title: "TCS CodeVita Participant", org: "Hackathon", desc: "Competed in one of the world's largest coding contests tackling complex algorithmic challenges.", year: "2024" },
+  { icon: "🏆", title: "Vibe Code India 2025 Hackathon", org: "Certificate of Participation", desc: "Successfully participated and competed in the Vibe Code India 2025 national hackathon.", year: "2025" },
+  { icon: "🔥", title: "100 Days LeetCode Streak Badge", org: "LeetCode", desc: "Maintained a continuous 100-day problem-solving streak, showcasing unyielding consistency and dedication.", year: "2024" },
 ];
-function AchievementCard({ a, i, last }) {
+function AchievementCard({ a, i }) {
   const [h, setH] = useState(false);
   const w = useWidth();
   return (
-    <div key={a.title} className={`reveal d${Math.min(i + 1, 4)}${last ? " wide-card" : ""}`}
+    <div key={a.title} 
+      className={`reveal d${Math.min(i + 1, 4)} relative overflow-hidden p-6 md:p-7 transition-all duration-[0.28s] border col-span-1 ${
+         h ? "bg-[#0a193c]/70 border-portfolio-blue/30" : "bg-[#050c1e]/60 border-white/5"}`}
       onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
-      style={{ gridColumn: (last && w > 900) ? "span 2" : "span 1", padding: w <= 560 ? "24px 20px" : "28px 24px", background: h ? "rgba(10,25,60,.7)" : "rgba(5,12,30,.6)", border: `1px solid ${h ? "rgba(91,168,245,.3)" : "rgba(20,50,100,.2)"}`, transition: "all .28s", position: "relative", overflow: "hidden" }}>
-      <div style={{ display: "flex", alignItems: "flex-start", gap: 16 }}>
-        <div style={{ fontSize: 26, lineHeight: 1 }}>{a.icon}</div>
-        <div style={{ flex: 1 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 5, flexWrap: "wrap", gap: 8 }}>
-            <div style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: 15, color: h ? "#dce8f5" : "#8ba8c8", transition: "color .2s" }}>{a.title}</div>
-            <span style={{ fontSize: 9, letterSpacing: ".18em", textTransform: "uppercase", color: "#5ba8f5", border: "1px solid rgba(91,168,245,.25)", padding: "2px 9px" }}>{a.year}</span>
+    >
+      <div className="flex items-start gap-4">
+        <div className="text-[26px] leading-none">{a.icon}</div>
+        <div className="flex-1">
+          <div className="flex justify-between items-start mb-1 flex-wrap gap-2">
+            <div className={`font-syne font-extrabold text-[15px] transition-colors duration-200 ${h ? "text-portfolio-text" : "text-[#8ba8c8]"}`}>{a.title}</div>
+            <span className="text-[9px] tracking-[0.18em] uppercase text-portfolio-blue border border-portfolio-blue/25 px-[9px] py-0.5">{a.year}</span>
           </div>
-          <div style={{ fontSize: 11, color: "#3a6a9a", marginBottom: 7 }}>{a.org}</div>
-          <p style={{ fontSize: 12, color: "#1e3a5f" }}>{a.desc}</p>
+          <div className="text-[11px] text-[#3a6a9a] mb-[7px]">{a.org}</div>
+          <p className="text-[12px] text-[#1e3a5f]">{a.desc}</p>
         </div>
       </div>
     </div>
@@ -558,12 +531,12 @@ function AchievementCard({ a, i, last }) {
 
 function Achievements() {
   return (
-    <section id="achievements" className="sp" style={{ padding: "96px 52px", background: "rgba(4,9,22,.7)" }}>
+    <section id="achievements" className="px-5 md:px-[52px] py-16 bg-[#040916]/70">
       <SectionTag>Milestones</SectionTag>
-      <SectionTitle>Achieve<span style={{ color: "#5ba8f5", textShadow: "0 0 18px rgba(91,168,245,.3)" }}>ments</span></SectionTitle>
-      <div className="ga">
+      <SectionTitle>Achieve<span className="text-portfolio-blue shadow-blue-500/30 shadow-[0_0_18px]">ments</span></SectionTitle>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-[3px]">
         {ACHIEVEMENTS.map((a, i) => (
-          <AchievementCard key={a.title} a={a} i={i} last={i === ACHIEVEMENTS.length - 1} />
+          <AchievementCard key={a.title} a={a} i={i} />
         ))}
       </div>
     </section>
@@ -572,13 +545,11 @@ function Achievements() {
 
 function Resume() {
   return (
-    <section id="resume" className="sp" style={{ padding: "96px 52px", position: "relative" }}>
+    <section id="resume" className="px-5 md:px-[52px] py-16 relative">
       <SectionTag>Background</SectionTag>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 14 }}>
-        <SectionTitle>My <span style={{ color: "#5ba8f5", textShadow: "0 0 18px rgba(91,168,245,.3)" }}>Résumé</span></SectionTitle>
-        <a href="/resume.pdf" target="_blank" className="reveal d1" style={{ display: "flex", alignItems: "center", gap: 8, padding: "9px 18px", border: "1px solid rgba(91,168,245,.3)", color: "#5ba8f5", fontSize: 11, fontFamily: "'Syne',sans-serif", fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", background: "rgba(10,30,80,.2)", transition: "all .22s", marginBottom: 44, whiteSpace: "nowrap" }}
-          onMouseEnter={e => { e.currentTarget.style.background = "rgba(20,60,140,.28)"; e.currentTarget.style.boxShadow = "0 0 16px rgba(30,80,160,.28)"; }}
-          onMouseLeave={e => { e.currentTarget.style.background = "rgba(10,30,80,.2)"; e.currentTarget.style.boxShadow = "none"; }}>
+      <div className="flex justify-between items-end flex-wrap gap-3.5">
+        <SectionTitle>My <span className="text-portfolio-blue shadow-blue-500/30 shadow-[0_0_18px]">Résumé</span></SectionTitle>
+        <a href="/resume.pdf" target="_blank" className="reveal d1 flex items-center gap-2 px-[18px] py-[9px] border border-portfolio-blue/30 text-portfolio-blue font-syne font-bold text-[11px] tracking-[0.1em] uppercase bg-portfolio-blue/10 hover:bg-portfolio-blue/20 hover:shadow-[0_0_16px_rgba(30,80,160,0.28)] transition-all duration-200 mb-11 whitespace-nowrap">
           ↓ Download PDF
         </a>
       </div>
@@ -590,18 +561,59 @@ function SocialLink({ l }) {
   const [h, setH] = useState(false);
   return (
     <a key={l.label} href={l.href} target="_blank" rel="noreferrer" onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)} title={l.label}
-      style={{
-        display: "flex", justifyContent: "center", alignItems: "center",
-        width: 56, height: 56, borderRadius: "50%",
-        background: h ? "rgba(91,168,245,.1)" : "rgba(20,50,100,.2)",
-        border: `1px solid ${h ? "rgba(91,168,245,.5)" : "rgba(30,58,95,.5)"}`,
-        color: h ? "#5ba8f5" : "#8ba8c8",
-        transition: "all .3s ease",
-        transform: h ? "translateY(-4px)" : "none",
-        boxShadow: h ? "0 10px 20px rgba(0,0,0,.3)" : "none"
-      }}>
-      <l.Icon style={{ fontSize: 24 }} />
+       className={`flex justify-center items-center w-14 h-14 rounded-full transition-all duration-300 border ${
+         h ? "bg-portfolio-blue/10 border-portfolio-blue/50 text-portfolio-blue -translate-y-1 shadow-[0_10px_20px_rgba(0,0,0,0.3)]" : "bg-[#143264]/20 border-white/5 text-[#8ba8c8]"
+       }`}>
+      <l.Icon className="text-2xl" />
     </a>
+  );
+}
+
+/* ── Education ── */
+const EDUCATION = [
+  { institution: "Lovely Professional University", location: "Phagwara, Punjab", degree: "Bachelor of Technology in Computer Science and Engineering", score: "CGPA: 8.34", period: "Aug '23 - Present", accent: "#5ba8f5" },
+  { institution: "Modern Public School", location: "Motihari, Bihar", degree: "Intermediate", score: "Percentage: 82.6%", period: "Mar '21 - Mar '22", accent: "#8bbfe8" },
+  { institution: "Jeevan Public School", location: "Motihari, Bihar", degree: "Matriculation", score: "Percentage: 88.6%", period: "Mar '19 - Mar '20", accent: "#3a7abf" },
+];
+
+function EduCard({ item, i, last }) {
+  const [h, setH] = useState(false);
+  return (
+    <div className={`reveal d${Math.min(i + 1, 5)} relative pl-8 md:pl-12 pb-10`} onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}>
+      {!last && <div className="absolute left-[11px] md:left-[15px] top-8 bottom-[-10px] w-px bg-white/10" />}
+      <div className={`absolute left-1.5 md:left-2 top-2 w-4 h-4 rounded-full border-2 z-10 transition-colors duration-300 flex items-center justify-center ${h ? "bg-[#0a193c]" : "bg-[#050c1e]"}`} style={{ borderColor: item.accent }}>
+        {h && <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: item.accent, boxShadow: `0 0 8px ${item.accent}` }} />}
+      </div>
+      
+      <div className={`p-6 md:p-8 rounded-2xl border transition-all duration-300 ${h ? "bg-[#0a193c]/60 shadow-[0_10px_30px_rgba(20,50,100,0.2)] -translate-y-1" : "bg-[#050c1e]/40 border-white/5"}`} style={{ borderColor: h ? item.accent + '50' : 'rgba(255,255,255,0.03)' }}>
+        <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-3">
+          <div>
+            <h3 className={`font-syne font-extrabold text-[18px] md:text-[20px] transition-colors duration-300 ${h ? "text-portfolio-text" : "text-[#8ba8c8]"}`}>{item.institution}</h3>
+            <div className="text-[12px] text-[#3a6a9a] mt-1">{item.location}</div>
+          </div>
+          <div className="text-[10px] tracking-[0.15em] uppercase px-3 py-1.5 rounded-full border whitespace-nowrap" style={{ color: item.accent, borderColor: `${item.accent}30`, backgroundColor: `${item.accent}0a` }}>
+            {item.period}
+          </div>
+        </div>
+        <p className="text-[13.5px] text-[#1e3a5f] leading-relaxed mb-3">{item.degree}</p>
+        <div className="inline-block px-3 py-1 rounded-md bg-black/40 text-[11px] font-mono font-bold" style={{ color: item.accent, border: `1px solid ${item.accent}30` }}>
+          {item.score}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Education() {
+  return (
+    <section id="education" className="px-5 md:px-[52px] py-16 bg-[#030610]/40">
+      <SectionTag>Academic Journey</SectionTag>
+      <SectionTitle>Edu<span className="text-portfolio-blue shadow-blue-500/30 shadow-[0_0_18px]">cation</span></SectionTitle>
+      
+      <div className="relative mt-12 max-w-[800px]">
+        {EDUCATION.map((item, i) => <EduCard key={item.institution} item={item} i={i} last={i === EDUCATION.length - 1} />)}
+      </div>
+    </section>
   );
 }
 
@@ -610,6 +622,7 @@ function Contact() {
   const [sent, setSent] = useState(false);
   const [focused, setFocused] = useState("");
   const w = useWidth();
+  
   const LINKS = [
     { label: "Email", val: "kunal123647@gmail.com", href: "mailto:kunal123647@gmail.com", Icon: FiMail },
     { label: "Phone", val: "+91 9128744294", href: "tel:+919128744294", Icon: FiPhone },
@@ -619,53 +632,58 @@ function Contact() {
     { label: "HackerRank", val: "@kunal", href: "https://www.hackerrank.com/profile/kunal", Icon: FaHackerrank },
     { label: "GeeksForGeeks", val: "@kunal2134", href: "https://www.geeksforgeeks.org/profile/kunal2134", Icon: FaCode }
   ];
+
   const inp = (key, label, placeholder, type = "text") => (
     <div>
-      <div style={{ fontSize: 10, letterSpacing: ".2em", textTransform: "uppercase", color: focused === key ? "#5ba8f5" : "#1a3050", marginBottom: 7, transition: "color .2s" }}>{label}</div>
+      <div className={`text-[10px] tracking-[0.2em] uppercase mb-1.5 transition-colors duration-200 ${focused === key ? "text-portfolio-blue" : "text-[#1a3050]"}`}>{label}</div>
       <input type={type} value={form[key]} placeholder={placeholder}
         onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
         onFocus={() => setFocused(key)} onBlur={() => setFocused("")}
-        style={{ width: "100%", background: "rgba(5,12,30,.8)", border: `1px solid ${focused === key ? "rgba(91,168,245,.5)" : "rgba(20,50,100,.3)"}`, color: "#dce8f5", padding: "11px 13px", fontFamily: "'JetBrains Mono',monospace", fontSize: 12, outline: "none", transition: "border-color .2s" }}
+        className={`w-full bg-[#050c1e]/80 border text-portfolio-text px-[13px] py-[11px] font-mono text-[12px] outline-none transition-colors duration-200 ${
+          focused === key ? "border-portfolio-blue/50" : "border-white/5"
+        }`}
       />
     </div>
   );
+
   return (
-    <section id="contact" className="sp" style={{ padding: "96px 52px", background: "rgba(3,7,18,.7)", position: "relative" }}>
-      <div style={{ position: "absolute", bottom: "20%", left: "15%", width: 300, height: 300, background: "radial-gradient(circle,rgba(10,30,100,.1) 0%,transparent 70%)", pointerEvents: "none" }} />
-      <div className="g2" style={{ alignItems: "start", position: "relative", zIndex: 2 }}>
+    <section id="contact" className="px-5 md:px-[52px] py-24 bg-[#030712]/70 relative">
+      <div className="absolute bottom-[20%] left-[15%] w-[300px] h-[300px] bg-[radial-gradient(circle,rgba(10,30,100,0.1)_0%,transparent_70%)] pointer-events-none" />
+      <div className={`grid ${w <= 900 ? 'grid-cols-1' : 'grid-cols-2'} items-start relative z-10 gap-11`}>
         <div>
           <SectionTag>Get In Touch</SectionTag>
-          <h2 className="reveal d1" style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: "clamp(40px,6vw,86px)", lineHeight: .9, color: "#dce8f5", marginBottom: 22 }}>
-            LET'S<br />BUILD<br /><span style={{ color: "#5ba8f5", textShadow: "0 0 26px rgba(91,168,245,.4)" }}>TOGETHER.</span>
+          <h2 className="reveal d1 font-syne font-extrabold text-[clamp(40px,6vw,86px)] leading-[0.9] text-portfolio-text mb-[22px]">
+            LET'S<br />BUILD<br /><span className="text-portfolio-blue shadow-blue-500/40 shadow-[0_0_26px]">TOGETHER.</span>
           </h2>
-          <p className="reveal d2" style={{ color: "#1e3a5f", lineHeight: 2, fontSize: 13, marginBottom: 32, textAlign: w <= 900 ? 'center' : 'left' }}>Available for freelance and full-time roles. Have a project? Let's talk.</p>
-          <div className="reveal d3" style={{ display: "flex", gap: "16px", flexWrap: "wrap", marginTop: "10px", justifyContent: w <= 900 ? 'center' : 'flex-start', marginBottom: w <= 900 ? '40px' : '0' }}>
+          <p className={`reveal d2 text-[#1e3a5f] leading-loose text-[13px] mb-8 ${w <= 900 ? 'text-center' : 'text-left'}`}>Available for freelance and full-time roles. Have a project? Let's talk.</p>
+          <div className={`reveal d3 flex gap-4 flex-wrap mt-[10px] ${w <= 900 ? 'justify-center mb-10' : 'justify-start mb-0'}`}>
             {LINKS.map(l => <SocialLink key={l.label} l={l} />)}
           </div>
         </div>
         <div className="reveal d2">
           {sent ? (
-            <div style={{ padding: 40, border: "1px solid rgba(91,168,245,.25)", textAlign: "center", background: "rgba(5,15,40,.8)" }}>
-              <div style={{ fontSize: 40, marginBottom: 12, color: "#5ba8f5", animation: "drift 3s ease-in-out infinite" }}>✓</div>
-              <div style={{ fontFamily: "'Syne',sans-serif", fontWeight: 800, fontSize: 17, color: "#5ba8f5" }}>Message Sent!</div>
-              <p style={{ color: "#1e3a5f", marginTop: 7, fontSize: 12 }}>I'll be in touch soon.</p>
+            <div className="p-10 border border-portfolio-blue/25 text-center bg-[#050f28]/80">
+              <div className="text-[40px] mb-3 text-portfolio-blue animate-drift">✓</div>
+              <div className="font-syne font-extrabold text-[17px] text-portfolio-blue">Message Sent!</div>
+              <p className="text-[#1e3a5f] mt-[7px] text-[12px]">I'll be in touch soon.</p>
             </div>
           ) : (
-            <div style={{ display: "flex", flexDirection: "column", gap: 13 }}>
+            <div className="flex flex-col gap-[13px]">
               {inp("name", "Your Name", "Jane Smith")}
               {inp("email", "Email", "jane@company.com", "email")}
               <div>
-                <div style={{ fontSize: 10, letterSpacing: ".2em", textTransform: "uppercase", color: focused === "message" ? "#5ba8f5" : "#1a3050", marginBottom: 7, transition: "color .2s" }}>Message</div>
+                <div className={`text-[10px] tracking-[0.2em] uppercase mb-1.5 transition-colors duration-200 ${focused === "message" ? "text-portfolio-blue" : "text-[#1a3050]"}`}>Message</div>
                 <textarea value={form.message} placeholder="Tell me about your project..."
                   onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
                   onFocus={() => setFocused("message")} onBlur={() => setFocused("")}
-                  style={{ width: "100%", minHeight: 110, background: "rgba(5,12,30,.8)", border: `1px solid ${focused === "message" ? "rgba(91,168,245,.5)" : "rgba(20,50,100,.3)"}`, color: "#dce8f5", padding: "11px 13px", fontFamily: "'JetBrains Mono',monospace", fontSize: 12, outline: "none", resize: "vertical", transition: "border-color .2s" }}
+                  className={`w-full min-h-[110px] bg-[#050c1e]/80 border text-portfolio-text px-[13px] py-[11px] font-mono text-[12px] outline-none resize-y transition-colors duration-200 ${
+                    focused === "message" ? "border-portfolio-blue/50" : "border-white/5"
+                  }`}
                 />
               </div>
               <button onClick={() => form.name && form.email && setSent(true)}
-                style={{ background: "linear-gradient(135deg,#0a2050,#1e4a8f)", color: "#dce8f5", border: "1px solid rgba(91,168,245,.3)", padding: 13, fontFamily: "'Syne',sans-serif", fontWeight: 700, fontSize: 11, letterSpacing: ".15em", textTransform: "uppercase", marginTop: 5, transition: "all .25s", boxShadow: "0 0 16px rgba(10,40,120,.22)", width: "100%", cursor: "pointer" }}
-                onMouseEnter={e => { e.currentTarget.style.background = "linear-gradient(135deg,#1e4a8f,#3a7abf)"; e.currentTarget.style.boxShadow = "0 0 24px rgba(30,80,160,.4)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
-                onMouseLeave={e => { e.currentTarget.style.background = "linear-gradient(135deg,#0a2050,#1e4a8f)"; e.currentTarget.style.boxShadow = "0 0 16px rgba(10,40,120,.22)"; e.currentTarget.style.transform = "none"; }}>
+                className="w-full bg-gradient-to-br from-[#0a2050] to-[#1e4a8f] text-portfolio-text border border-portfolio-blue/30 p-[13px] font-syne font-bold text-[11px] tracking-[0.15em] uppercase mt-[5px] transition-all duration-200 shadow-[0_0_16px_rgba(10,40,120,0.22)] hover:from-[#1e4a8f] hover:to-[#3a7abf] hover:shadow-[0_0_24px_rgba(30,80,160,0.4)] hover:-translate-y-[2px] cursor-pointer"
+              >
                 Send Message →
               </button>
             </div>
@@ -678,7 +696,7 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer style={{ padding: "24px", textAlign: "center", borderTop: "1px solid rgba(20,50,100,.3)", fontSize: 10, color: "#2a4a6a", background: "#020408" }}>
+    <footer className="p-6 text-center border-t border-white/5 text-[10px] text-[#2a4a6a] bg-[#020408]">
       <span>© 2026 Kunal. Building with passion & pixels.</span>
     </footer>
   );
@@ -695,16 +713,16 @@ export default function App() {
       entries => entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); }),
       { threshold: .25 }
     );
-      secs.forEach(s => io.observe(s));
-      return () => io.disconnect();
-    }, []);
+    secs.forEach(s => io.observe(s));
+    return () => io.disconnect();
+  }, []);
   
-    return (
-    <div style={{ minHeight: "100vh", background: "#020408", position: "relative" }}>
+  return (
+    <div className="min-h-screen bg-portfolio-dark relative">
       <Particles />
       {w > 768 && <Cursor />}
       <Nav active={active} />
-      <div style={{ position: "relative", zIndex: 10, paddingTop: 56 }}>
+      <div className="relative z-10 pt-14">
         <Hero />
         <Marquee />
         <About />
@@ -713,6 +731,7 @@ export default function App() {
         <Certificates />
         <Achievements />
         <Resume />
+        <Education />
         <Contact />
         <Footer />
       </div>

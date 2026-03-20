@@ -26,6 +26,14 @@ const projectsData = [
         github: '#',
         live: '#',
         image: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=600&q=80'
+    },
+    {
+        title: 'Laptop Performance Prediction',
+        description: 'Machine learning model to predict laptop performance and prices based on hardware specifications.',
+        tech: ['Python', 'Machine Learning', 'Pandas', 'Scikit-learn'],
+        github: '#',
+        live: '#',
+        image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=600&q=80'
     }
 ];
 
