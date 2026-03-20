@@ -305,10 +305,10 @@ function Hero() {
               HI, I AM
             </h2>
             <div className={`relative w-full flex ${w <= 900 ? 'justify-center' : 'justify-start'}`}>
-              <h1 className={`font-syne font-extrabold text-[clamp(60px,13vw,160px)] whitespace-nowrap leading-[0.88] tracking-[-0.02em] text-transparent absolute top-0 outline-px outline-[#5ba8f5]/10 animate-[glitch1_6s_steps(1)_infinite_2s] pointer-events-none select-none ${w <= 900 ? 'left-1/2 -translate-x-1/2' : 'left-0 translate-x-0'}`} style={{ WebkitTextStroke: "2px rgba(91,168,245,.15)" }}>KUNAL</h1>
-              <h1 className={`font-syne font-extrabold text-[clamp(60px,13vw,160px)] whitespace-nowrap leading-[0.88] tracking-[-0.02em] text-transparent absolute top-0 outline-px outline-[#96d2ff]/7 animate-[glitch2_6s_steps(1)_infinite_2.3s] pointer-events-none select-none ${w <= 900 ? 'left-1/2 -translate-x-1/2' : 'left-0 translate-x-0'}`} style={{ WebkitTextStroke: "2px rgba(150,210,255,.1)" }}>KUNAL</h1>
-              <h1 className="font-syne font-extrabold text-[clamp(60px,13vw,160px)] whitespace-nowrap leading-[0.88] tracking-[-0.02em] animate-[fadeUp_0.9s_ease_0.2s_both]">
-                <span className="bg-gradient-to-br from-[#ffffff] via-[#8bbfe8] to-[#3a7abf] bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(91,168,245,0.35)]">KUNAL</span>
+              <h1 className={`font-syne font-bold text-[clamp(36px,8.5vw,90px)] whitespace-nowrap leading-[0.9] tracking-[-0.01em] text-transparent absolute top-0 outline-px outline-[#5ba8f5]/10 animate-[glitch1_6s_steps(1)_infinite_2s] pointer-events-none select-none ${w <= 900 ? 'left-1/2 -translate-x-1/2' : 'left-0 translate-x-0'}`} style={{ WebkitTextStroke: "2px rgba(91,168,245,.15)" }}>Kunal Kumar</h1>
+              <h1 className={`font-syne font-bold text-[clamp(36px,8.5vw,90px)] whitespace-nowrap leading-[0.9] tracking-[-0.01em] text-transparent absolute top-0 outline-px outline-[#96d2ff]/7 animate-[glitch2_6s_steps(1)_infinite_2.3s] pointer-events-none select-none ${w <= 900 ? 'left-1/2 -translate-x-1/2' : 'left-0 translate-x-0'}`} style={{ WebkitTextStroke: "2px rgba(150,210,255,.1)" }}>Kunal Kumar</h1>
+              <h1 className="font-syne font-bold text-[clamp(36px,8.5vw,90px)] whitespace-nowrap leading-[0.9] tracking-[-0.01em] animate-[fadeUp_0.9s_ease_0.2s_both]">
+                <span className="bg-gradient-to-br from-[#ffffff] via-[#8bbfe8] to-[#3a7abf] bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(91,168,245,0.35)]">Kunal Kumar</span>
               </h1>
             </div>
           </div>
@@ -571,7 +571,7 @@ function SocialLink({ l }) {
 
 /* ── Education ── */
 const EDUCATION = [
-  { institution: "Lovely Professional University", location: "Phagwara, Punjab", degree: "Bachelor of Technology in Computer Science and Engineering", score: "CGPA: 8.34", period: "Aug '23 - Present", accent: "#5ba8f5" },
+  { institution: "Lovely Professional University", location: "Phagwara, Punjab", degree: "Bachelor of Technology in Computer Science and Engineering", score: "CGPA: 8.31", period: "Aug '23 - Present", accent: "#5ba8f5" },
   { institution: "Modern Public School", location: "Motihari, Bihar", degree: "Intermediate", score: "Percentage: 82.6%", period: "Mar '21 - Mar '22", accent: "#8bbfe8" },
   { institution: "Jeevan Public School", location: "Motihari, Bihar", degree: "Matriculation", score: "Percentage: 88.6%", period: "Mar '19 - Mar '20", accent: "#3a7abf" },
 ];
