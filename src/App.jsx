@@ -429,13 +429,18 @@ function ProjectCard({ p, i }) {
     <div className={`reveal d${i + 1} relative overflow-hidden transition-all duration-300 border ${hov ? "shadow-[0_0_36px_rgba(30,80,160,0.22)]" : "shadow-none"} ${p.wide && w > 900 ? "col-span-2 aspect-[21/8]" : "col-span-1 aspect-[16/10]"}`}
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
       style={{ 
-        background: p.image ? `url(${p.image}) center/cover` : p.grad, 
+        backgroundColor: "#020408", 
         borderColor: hov ? p.accent + "80" : "rgba(20,50,100,0.3)"
       }}>
+      {p.image ? (
+        <img src={p.image} alt={p.title} className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out ${hov ? 'scale-105' : 'scale-100'}`} />
+      ) : (
+        <div className="absolute inset-0" style={{ background: p.grad }} />
+      )}
       <div className={`absolute inset-0 transition-opacity duration-500 ${hov ? "opacity-100" : "opacity-40"}`} 
            style={{ background: p.image ? `rgba(2,4,8,0.6)` : `radial-gradient(circle at ${p.wide ? "50% 60%" : "70% 30%"},${p.accent}18 0%,transparent 60%)` }} />
-      {hov && <div className="absolute left-0 right-0 h-[1px] animate-[scanline_2s_linear_infinite] pointer-events-none" style={{ background: `linear-gradient(90deg,transparent,${p.accent}40,transparent)` }} />}
-      <span className="absolute top-3 right-4 font-syne font-extrabold text-[44px]" style={{ color: `${p.accent}14` }}>{p.num}</span>
+      {hov && <div className="absolute left-0 right-0 h-[1px] animate-[scanline_2s_linear_infinite] pointer-events-none z-10" style={{ background: `linear-gradient(90deg,transparent,${p.accent}40,transparent)` }} />}
+      <span className="absolute top-3 right-4 font-syne font-extrabold text-[44px] z-10" style={{ color: `${p.accent}14` }}>{p.num}</span>
       <div className="absolute inset-0 flex flex-col justify-end p-[22px] bg-gradient-to-t from-[#020408]/95 via-transparent to-transparent">
         <div className="flex gap-1.5 mb-[7px] flex-wrap">
           {p.tags.map(t => <span key={t} className="text-[9px] tracking-[0.18em] uppercase px-2 py-0.5" style={{ color: p.accent, border: `1px solid ${p.accent}35`, background: `${p.accent}08` }}>{t}</span>)}
