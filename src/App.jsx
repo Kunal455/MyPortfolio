@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FaGithub, FaLinkedin, FaHackerrank, FaCode, FaReact, FaJs, FaNodeJs, FaPython, FaHtml5, FaGitAlt, FaChartBar } from "react-icons/fa";
-import { FiMail, FiPhone } from "react-icons/fi";
+import { FiMail, FiPhone, FiExternalLink } from "react-icons/fi";
 import { SiCplusplus, SiMysql, SiMongodb, SiPandas, SiPostman } from "react-icons/si";
 /* Fonts are handled via index.html */
 
@@ -106,7 +106,6 @@ const NAVS = [
   { id: "projects", label: "Projects" },
   { id: "certificates", label: "Certifications" },
   { id: "achievements", label: "Achievements" },
-  { id: "resume", label: "Resume" },
   { id: "education", label: "Education" },
   { id: "contact", label: "Contact" },
 ];
@@ -298,15 +297,15 @@ function Hero() {
       <div className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-portfolio-blue/10 to-transparent animate-[scanline_8s_linear_infinite] pointer-events-none z-[1]" />
       <div className="absolute inset-0 bg-[linear-gradient(rgba(30,58,95,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(30,58,95,0.06)_1px,transparent_1px)] bg-[length:48px_48px] pointer-events-none" />
 
-       <div className={`relative z-10 max-w-[900px] ${w <= 900 ? 'text-center' : 'text-left'}`}>
+       <div className="relative z-10 max-w-[900px] text-center mx-auto">
         {step >= 2 && (
-          <div className={`relative mb-6 w-full flex flex-col ${w <= 900 ? 'items-center' : 'items-start'}`}>
-            <h2 className={`font-syne font-bold text-[clamp(18px,4vw,36px)] leading-[1.2] text-[#8bbfe8] mb-1 animate-[fadeUp_0.9s_ease_0.1s_both] tracking-[0.2em] relative z-20 ${w <= 900 ? 'text-center' : 'text-left'}`}>
+          <div className="relative mb-6 w-full flex flex-col items-center">
+            <h2 className="font-syne font-bold text-[clamp(18px,4vw,36px)] leading-[1.2] text-[#8bbfe8] mb-1 animate-[fadeUp_0.9s_ease_0.1s_both] tracking-[0.2em] relative z-20 text-center">
               HI, I AM
             </h2>
-            <div className={`relative w-full flex ${w <= 900 ? 'justify-center' : 'justify-start'}`}>
-              <h1 className={`font-syne font-bold text-[clamp(36px,8.5vw,90px)] whitespace-nowrap leading-[0.9] tracking-[-0.01em] text-transparent absolute top-0 outline-px outline-[#5ba8f5]/10 animate-[glitch1_6s_steps(1)_infinite_2s] pointer-events-none select-none ${w <= 900 ? 'left-1/2 -translate-x-1/2' : 'left-0 translate-x-0'}`} style={{ WebkitTextStroke: "2px rgba(91,168,245,.15)" }}>Kunal Kumar</h1>
-              <h1 className={`font-syne font-bold text-[clamp(36px,8.5vw,90px)] whitespace-nowrap leading-[0.9] tracking-[-0.01em] text-transparent absolute top-0 outline-px outline-[#96d2ff]/7 animate-[glitch2_6s_steps(1)_infinite_2.3s] pointer-events-none select-none ${w <= 900 ? 'left-1/2 -translate-x-1/2' : 'left-0 translate-x-0'}`} style={{ WebkitTextStroke: "2px rgba(150,210,255,.1)" }}>Kunal Kumar</h1>
+            <div className="relative w-full flex justify-center">
+              <h1 className="font-syne font-bold text-[clamp(36px,8.5vw,90px)] whitespace-nowrap leading-[0.9] tracking-[-0.01em] text-transparent absolute top-0 outline-px outline-[#5ba8f5]/10 animate-[glitch1_6s_steps(1)_infinite_2s] pointer-events-none select-none left-1/2 -translate-x-1/2" style={{ WebkitTextStroke: "2px rgba(91,168,245,.15)" }}>Kunal Kumar</h1>
+              <h1 className="font-syne font-bold text-[clamp(36px,8.5vw,90px)] whitespace-nowrap leading-[0.9] tracking-[-0.01em] text-transparent absolute top-0 outline-px outline-[#96d2ff]/7 animate-[glitch2_6s_steps(1)_infinite_2.3s] pointer-events-none select-none left-1/2 -translate-x-1/2" style={{ WebkitTextStroke: "2px rgba(150,210,255,.1)" }}>Kunal Kumar</h1>
               <h1 className="font-syne font-bold text-[clamp(36px,8.5vw,90px)] whitespace-nowrap leading-[0.9] tracking-[-0.01em] animate-[fadeUp_0.9s_ease_0.2s_both]">
                 <span className="bg-gradient-to-br from-[#ffffff] via-[#8bbfe8] to-[#3a7abf] bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(91,168,245,0.35)]">Kunal Kumar</span>
               </h1>
@@ -318,11 +317,18 @@ function Hero() {
             <span className="shimmer-text">{typed}<span className="inline-block animate-[blink_1s_step-end_infinite] text-portfolio-blue">|</span></span>
           </h1>
         )}
-        {show(3, `max-w-full md:max-w-[460px] text-[13px] text-[#2a4a6a] leading-[1.9] mb-10 ${w <= 900 ? "mx-auto" : "mx-0"}`,
+        {show(3, "max-w-full md:max-w-[460px] text-[13px] text-[#2a4a6a] leading-[1.9] mb-10 mx-auto",
           <>Building <span className="text-[#8bbfe8]">digital experiences</span> at the intersection of design and code. Obsessed with performance, motion, and craft.</>
         )}
-        {show(4, `flex gap-4 items-center flex-wrap ${w <= 900 ? 'justify-center' : 'justify-start'}`,
-          <><HoverBtn href="#projects" primary>View Work</HoverBtn><HoverBtn href="#contact">Let's Talk →</HoverBtn></>
+        {show(4, "flex gap-5 items-center flex-wrap justify-center mt-6",
+          <>
+            <HoverBtn href="/resume.pdf" download="Kunal_Resume.pdf" primary>
+              Download Resume
+            </HoverBtn>
+            <HoverBtn href="#contact">
+              Let's Connect
+            </HoverBtn>
+          </>
         )}
       </div>
       {step >= 5 && <div className="absolute -bottom-[50px] -right-[10px] font-syne font-extrabold text-[clamp(70px,14vw,240px)] text-transparent animate-fade-in pointer-events-none select-none leading-none" style={{ WebkitTextStroke: "1px rgba(20,50,100,.13)" }}>DEV</div>}
@@ -339,10 +345,18 @@ function About() {
   return (
     <section id="about" className="px-5 md:px-[52px] py-24 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-portfolio-blue/5 to-transparent pointer-events-none" />
-      <div className={`grid ${w <= 900 ? 'grid-cols-1 gap-11' : 'grid-cols-2 gap-[72px]'} items-center relative z-10`}>
-        <div>
+      <div className={`flex ${w <= 900 ? 'flex-col gap-14 text-center' : 'flex-row gap-16 lg:gap-24 justify-center'} items-center relative z-10 max-w-[1050px] mx-auto`}>
+        <div className="reveal d1 relative flex justify-center shrink-0">
+          <div className="p-2 bg-gradient-to-br from-portfolio-blue/20 to-white/5 rounded-full relative">
+            <div className="w-[min(320px,75vw)] lg:w-[380px] aspect-square rounded-full bg-[#050f20] border border-portfolio-blue/30 relative overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.6)]">
+              <img src="/profile.jpg" alt="Kunal" className="w-full h-[135%] object-cover object-[center_15%] block" />
+            </div>
+          </div>
+          <div className="absolute -bottom-2 right-[5%] w-[70px] h-[70px] rounded-full border border-portfolio-blue/40 z-[1] animate-drift" />
+        </div>
+        <div className={`flex flex-col ${w <= 900 ? 'items-center text-center' : 'items-start text-left'} max-w-[540px]`}>
           <SectionTag>About Me</SectionTag>
-          <div className="reveal d2 text-[#3a5a80] leading-[2.1] text-[13.5px] mt-6">
+          <div className={`reveal d2 text-[#3a5a80] leading-[2.1] text-[13.5px] mt-4`}>
             <p>
               I am a <span className="text-portfolio-text font-bold">3rd-year Computer Science Engineering student</span> with a strong interest in building scalable, real-world applications using the <span className="text-[#8bbfe8] font-bold">MERN stack</span>, along with a growing focus on integrating <span className="text-portfolio-blue font-bold">AI and Machine Learning</span> into modern systems.
             </p>
@@ -352,15 +366,24 @@ function About() {
             <p className="mt-[18px]">
               With hands-on experience in full-stack development, I have worked on multiple projects that reflect my ability to design, develop, and deploy end-to-end applications. I am continuously learning new technologies and striving to build <span className="text-[#8bbfe8] font-bold">impactful, user-centric solutions.</span>
             </p>
-          </div>
-        </div>
-        <div className="reveal d2 relative flex justify-center">
-          <div className="p-2 bg-gradient-to-br from-portfolio-blue/20 to-white/5 rounded-full relative">
-            <div className="w-[min(280px,70vw)] aspect-square rounded-full bg-[#050f20] border border-portfolio-blue/30 relative overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.6)]">
-              <img src="/profile.jpg" alt="Kunal" className="w-full h-[135%] object-cover object-[center_15%] block" />
+            <div className={`flex gap-4 md:gap-6 mt-10 flex-wrap ${w <= 900 ? 'justify-center' : 'justify-start'}`}>
+              <div className="group relative overflow-hidden flex flex-col items-center justify-center py-5 px-2 min-w-[100px] md:min-w-[130px] rounded-xl border border-portfolio-blue/20 bg-portfolio-blue/5 transition-all duration-300 hover:border-portfolio-blue/40 hover:bg-portfolio-blue/10 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(91,168,245,0.15)] flex-1 md:flex-none">
+                <div className="absolute inset-0 bg-gradient-to-br from-portfolio-blue/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                <h4 className="font-syne text-2xl md:text-4xl font-extrabold text-[#8bbfe8] mb-1 relative z-10">4+</h4>
+                <p className="font-syne text-[9px] md:text-[11px] font-bold tracking-[0.15em] uppercase text-portfolio-text/70 relative z-10 text-center">Projects</p>
+              </div>
+              <div className="group relative overflow-hidden flex flex-col items-center justify-center py-5 px-2 min-w-[100px] md:min-w-[130px] rounded-xl border border-portfolio-blue/20 bg-portfolio-blue/5 transition-all duration-300 hover:border-portfolio-blue/40 hover:bg-portfolio-blue/10 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(91,168,245,0.15)] flex-1 md:flex-none">
+                <div className="absolute inset-0 bg-gradient-to-br from-portfolio-blue/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                <h4 className="font-syne text-2xl md:text-4xl font-extrabold text-[#8bbfe8] mb-1 relative z-10">8.31</h4>
+                <p className="font-syne text-[9px] md:text-[11px] font-bold tracking-[0.15em] uppercase text-portfolio-text/70 relative z-10 text-center">CGPA</p>
+              </div>
+              <div className="group relative overflow-hidden flex flex-col items-center justify-center py-5 px-2 min-w-[100px] md:min-w-[130px] rounded-xl border border-portfolio-blue/20 bg-portfolio-blue/5 transition-all duration-300 hover:border-portfolio-blue/40 hover:bg-portfolio-blue/10 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(91,168,245,0.15)] flex-1 md:flex-none">
+                <div className="absolute inset-0 bg-gradient-to-br from-portfolio-blue/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                <h4 className="font-syne text-2xl md:text-4xl font-extrabold text-[#8bbfe8] mb-1 relative z-10">10+</h4>
+                <p className="font-syne text-[9px] md:text-[11px] font-bold tracking-[0.15em] uppercase text-portfolio-text/70 relative z-10 text-center">Certificates</p>
+              </div>
             </div>
           </div>
-          <div className="absolute -bottom-0 right-[8%] w-[60px] h-[60px] rounded-full border border-portfolio-blue/40 z-[-1] animate-drift" />
         </div>
       </div>
     </section>
@@ -415,38 +438,95 @@ function Skills() {
   );
 }
 
-/* ── Projects ── */
 const PROJECTS = [
-  { num: "01", title: "E-Commerce Platform", desc: "Full MERN stack store with Stripe payments and custom admin panel.", tags: ["React", "Node.js", "MongoDB", "Stripe"], grad: "linear-gradient(135deg,#040d20,#071530)", accent: "#5ba8f5", image: "/ecommerce.png" },
-  { num: "02", title: "Chat System", desc: "Real-time task management using modern WebSockets for instant updates.", tags: ["Next.js", "Socket.io", "Tailwind"], grad: "linear-gradient(135deg,#060816,#0c1228)", accent: "#8bbfe8", image: "/chats.png" },
-  { num: "03", title: "Customer Churn Prediction", desc: "Web Wrapper for latest AI APIs to quickly generate variations.", tags: ["React", "OpenAI", "Express"], grad: "linear-gradient(135deg,#030a1a,#080f22)", accent: "#3a7abf", image: "/churn-new.png" },
-  { num: "04", title: "Laptop Performance Prediction", desc: "Machine learning model predicting laptop performance metrics based on hardware specifications.", tags: ["Python", "Pandas", "NumPy", "ML"], grad: "linear-gradient(135deg,#050f2a,#0f2a50)", accent: "#8bbfe8", image: "/laptop-perf.png" },
+  { 
+    num: "01", 
+    title: "An E-commerce Website", 
+    desc: [
+      "Building a production-ready MERN e-commerce platform with responsive UI and modular components architecture while managing version control using Git.",
+      "Creating secure RESTful APIs using Node.js and Express.js for authentication, product catalog, cart, and order workflows with JWT authorization and encryption.",
+      "Architecting a scalable MongoDB database and admin dashboard with role-based access control and full CRUD for products, categories, orders, and users, optimizing performance through Mongoose schemas, indexing, and Postman-tested APIs."
+    ],
+    tags: ["MongoDB", "Express.js", "React.js", "Node.js", "JavaScript", "JWT", "Mongoose", "Git", "REST APIs"], 
+    grad: "linear-gradient(135deg,#040d20,#071530)", accent: "#5ba8f5", image: "/ecommerce.png", codeUrl: "https://github.com/Kunal455/Ecommerce", demoUrl: "#" 
+  },
+  { 
+    num: "02", 
+    title: "Customer Churn Prediction", 
+    desc: [
+      "Developed a churn prediction model using Python and Random Forest by analyzing telecom customer data through exploratory data analysis, feature engineering, and model evaluation with ROC-AUC.",
+      "Implemented probability-based churn risk classification with threshold tuning to improve recall and identify at-risk customers for early retention.",
+      "Deployed the trained ML model using FastAPI and integrated it with a React frontend to deliver real-time churn predictions through a user-friendly interface."
+    ],
+    tags: ["Python", "Pandas", "NumPy", "Scikit-learn", "Random Forest", "FastAPI", "React", "EDA", "ROC-AUC"], 
+    grad: "linear-gradient(135deg,#030a1a,#080f22)", accent: "#3a7abf", image: "/churn-new.png", codeUrl: "https://github.com/Kunal455/Customer-Churn-Prediction", demoUrl: "#" 
+  },
+  { 
+    num: "03", 
+    title: "Real-Time Chat System", 
+    desc: [
+      "Designed and implemented a secure one-to-one real-time messaging system using the MERN stack, delivering a responsive UI and a seamless cross-device user experience.",
+      "Engineered RESTful backend services using Node.js and Express.js, implementing JWT authentication, password hashing, and scalable MongoDB schemas with Mongoose.",
+      "Enabled low-latency, bidirectional communication using Socket.io, supporting real-time message synchronization and online/offline user status tracking, and deployed the application."
+    ],
+    tags: ["MongoDB Atlas", "Express.js", "React.js", "Node.js", "Mongoose", "Tailwind CSS", "REST APIs", "Socket.io"], 
+    grad: "linear-gradient(135deg,#060816,#0c1228)", accent: "#8bbfe8", image: "/chats.png", codeUrl: "https://github.com/Kunal455/ChatSystem", demoUrl: "#" 
+  },
+  { 
+    num: "04", 
+    title: "Laptop Performance Prediction", 
+    desc: [
+      "Machine learning model predicting laptop performance metrics based on hardware specifications.",
+      "Utilized advanced regression techniques to accurately estimate real-world computing power.",
+      "Preprocessed and analyzed complex hardware datasets using Pandas and NumPy libraries."
+    ],
+    tags: ["Python", "Scikit-Learn", "Pandas", "Regression Models", "Feature Engineering"], 
+    grad: "linear-gradient(135deg,#050a14,#0c152a)", accent: "#5ba8f5", image: "/laptop-perf.png", codeUrl: "https://github.com/Kunal455/Laptop-Performance-Prediction", demoUrl: "#" 
+  },
 ];
+
 function ProjectCard({ p, i }) {
   const [hov, setHov] = useState(false);
-  const w = useWidth();
   return (
-    <div className={`reveal d${i + 1} relative overflow-hidden transition-all duration-300 border ${hov ? "shadow-[0_0_36px_rgba(30,80,160,0.22)]" : "shadow-none"} ${p.wide && w > 900 ? "col-span-2 aspect-[21/8]" : "col-span-1 aspect-[16/10]"}`}
+    <div className={`reveal d${Math.min(i + 1, 4)} group bg-[#081021] rounded-[24px] overflow-hidden border border-white/5 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(20,50,100,0.25)] flex flex-col h-full hover:border-[#3a7abf]/40`}
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
-      style={{ 
-        backgroundColor: "#020408", 
-        borderColor: hov ? p.accent + "80" : "rgba(20,50,100,0.3)"
-      }}>
-      {p.image ? (
-        <img src={p.image} alt={p.title} className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out ${hov ? 'scale-105' : 'scale-100'}`} />
-      ) : (
-        <div className="absolute inset-0" style={{ background: p.grad }} />
-      )}
-      <div className={`absolute inset-0 transition-opacity duration-500 ${hov ? "opacity-100" : "opacity-40"}`} 
-           style={{ background: p.image ? `rgba(2,4,8,0.6)` : `radial-gradient(circle at ${p.wide ? "50% 60%" : "70% 30%"},${p.accent}18 0%,transparent 60%)` }} />
-      {hov && <div className="absolute left-0 right-0 h-[1px] animate-[scanline_2s_linear_infinite] pointer-events-none z-10" style={{ background: `linear-gradient(90deg,transparent,${p.accent}40,transparent)` }} />}
-      <span className="absolute top-3 right-4 font-syne font-extrabold text-[44px] z-10" style={{ color: `${p.accent}14` }}>{p.num}</span>
-      <div className="absolute inset-0 flex flex-col justify-end p-[22px] bg-gradient-to-t from-[#020408]/95 via-transparent to-transparent">
-        <div className="flex gap-1.5 mb-[7px] flex-wrap">
-          {p.tags.map(t => <span key={t} className="text-[9px] tracking-[0.18em] uppercase px-2 py-0.5" style={{ color: p.accent, border: `1px solid ${p.accent}35`, background: `${p.accent}08` }}>{t}</span>)}
+    >
+      <div className="w-full aspect-[16/10] overflow-hidden relative">
+        {p.image ? (
+          <img src={p.image} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+        ) : (
+          <div className="w-full h-full" style={{ background: p.grad }} />
+        )}
+        <div className="absolute inset-0 bg-portfolio-blue/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+      </div>
+      
+      <div className="p-7 md:p-9 flex flex-col flex-grow">
+        <div className="flex flex-wrap gap-2.5 mb-5">
+          {p.tags.map(t => (
+            <span key={t} className="text-[10px] font-mono px-3 py-1 rounded-full bg-portfolio-blue/10 text-portfolio-blue border border-portfolio-blue/20">
+              {t}
+            </span>
+          ))}
         </div>
-        <div className="font-serif text-xl text-portfolio-text mb-1">{p.title}</div>
-        <p className="text-[11px] text-[#1e3a5f] leading-[1.7]">{p.desc}</p>
+        
+        <h3 className="font-syne font-bold text-[22px] md:text-[24px] text-portfolio-text mb-3 leading-[1.3] group-hover:text-portfolio-blue transition-colors duration-300">
+          {p.title}
+        </h3>
+        
+        <ul className="text-[12.5px] text-[#3a6a9a] leading-[1.65] mb-8 flex-grow list-disc pl-4 space-y-1.5 marker:text-portfolio-blue/60 max-w-full">
+          {Array.isArray(p.desc) ? (
+            p.desc.map((d, j) => <li key={j}>{d}</li>)
+          ) : (
+            <li>{p.desc}</li>
+          )}
+        </ul>
+        
+        <div className="flex items-center gap-3 mt-auto">
+          <a href={p.codeUrl || "#"} className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full border border-portfolio-blue/30 text-portfolio-blue hover:bg-portfolio-blue/10 transition-colors duration-300 w-full md:w-auto">
+            <FaGithub className="text-[16px]" />
+            <span className="text-[12px] font-syne font-bold tracking-wide">Code</span>
+          </a>
+        </div>
       </div>
     </div>
   );
@@ -459,7 +539,7 @@ function Projects() {
       <div className="flex justify-between items-end flex-wrap gap-3 mb-10">
         <SectionTitle>Projects</SectionTitle>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-[3px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-11">
         {PROJECTS.map((p, i) => <ProjectCard key={p.num} p={p} i={i} />)}
       </div>
     </section>
@@ -468,38 +548,59 @@ function Projects() {
 
 /* ── Stacks & Others ── */
 const CERTS = [
-  { year: "2025", name: "Full Stack Web Development", issuer: "Professional Certificate", badge: "Active", color: "#5ba8f5" },
-  { year: "2024", name: "Complete Python Bootcamp", issuer: "Udemy", badge: "Active", color: "#8bbfe8" },
-  { year: "2024", name: "Cloud Computing", issuer: "NPTEL", badge: "Active", color: "#3a7abf" },
+  { year: "2024", name: "Full Stack Web Development", issuer: "Professional Certificate", badge: "Active", color: "#5ba8f5", image: "/full-stack-web-cert.png", link: "#" },
+  { year: "2024", name: "A Complete Web Development Course with AI", issuer: "Udemy", badge: "Active", color: "#8bbfe8", image: "/web-dev-ai-cert.png", link: "https://ude.my/UC-040b5e43-9198-4515-bbd4-f9fb3c0cf44e" },
+  { year: "2024", name: "Learn Python Programming - Beginner to Master", issuer: "Udemy", badge: "Active", color: "#3a7abf", image: "/python-cert.png", link: "https://ude.my/UC-1c40de81-4eed-44d7-8cad-02a3e482f82e" },
+  { year: "2024", name: "Cloud Computing", issuer: "NPTEL", badge: "Active", color: "#5ba8f5", image: "/cloud-computing-cert.png", link: "https://archive.nptel.ac.in/noc/Ecertificate/?q=NPTEL25CS11S1337300282" },
+  { year: "2024", name: "Master Generative AI & Generative AI tools", issuer: "Online Course", badge: "Active", color: "#8bbfe8", image: "/generative-ai-cert.png", link: "https://verify.onwingspan.com" },
+  { year: "2024", name: "Introduction to Hardware and Operating Systems", issuer: "Online Course", badge: "Active", color: "#3a7abf", image: "/hardware-os-cert.png", link: "https://coursera.org/verify/RGGH2RCY5D8M" },
+  { year: "2025", name: "Git and Github", issuer: "CipherSchools", badge: "Active", color: "#f58b5b", image: "/cipher-git-cert.png", link: "https://www.cipherschools.com/verify/CSW2025-11521" },
+  { year: "2024", name: "Data Structures & Algorithms Using C++", issuer: "CipherSchools", badge: "Active", color: "#e88b5b", image: "/cipher-dsa-cert.png", link: "https://www.cipherschools.com/verify/CS2024-10167" },
 ];
 function CertCard({ c, i }) {
   const [h, setH] = useState(false);
-  const w = useWidth();
   return (
-    <div key={c.name} 
-      className={`reveal d${Math.min(i + 1, 4)} grid items-center transition-all duration-[0.25s] border-l-2 ${
-        w <= 560 ? "grid-cols-[50px_1fr] gap-x-2.5 gap-y-3.5 p-[15px_18px]" : "grid-cols-[60px_1fr_auto_auto] gap-x-3.5 gap-y-[18px] p-[19px_22px]"
-      } ${h ? "bg-[#0a193c]/50 border-l-portfolio-blue translate-x-1" : "bg-[#050c1e]/50 border-l-white/10 translate-x-0"}`}
+    <div 
+      className={`reveal d${Math.min(i + 1, 4)} group flex-shrink-0 w-[300px] md:w-[380px] bg-[#081021] rounded-[24px] overflow-hidden border border-white/5 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(20,50,100,0.25)] hover:border-[#3a7abf]/40 snap-center`}
       onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
-      style={{ borderLeftColor: h ? c.color : "rgba(20,50,100,0.3)" }}
     >
-      <div className="font-syne font-extrabold transition-colors duration-200" style={{ fontSize: w <= 560 ? 16 : 20, color: h ? c.color : "#1e3a5f" }}>{c.year}</div>
-      <div>
-        <div className="font-serif text-portfolio-text" style={{ fontSize: w <= 560 ? 14 : 16 }}>{c.name}</div>
-        <div className="text-[10px] text-[#1a3050] mt-0.5">{c.issuer}</div>
+      <div className="w-full aspect-[4/3] overflow-hidden relative bg-[#040814]">
+        {c.image ? (
+          <img src={c.image} alt={c.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center font-syne text-[50px] font-extrabold text-white/5" style={{ background: `radial-gradient(circle at 50% 50%, ${c.color}22 0%, #040814 100%)` }}>
+            {c.name.charAt(0)}
+          </div>
+        )}
+        <div className="absolute top-4 right-4 bg-[#0a193c]/90 backdrop-blur-md border border-white/10 text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full" style={{ color: c.color }}>
+          {c.year}
+        </div>
       </div>
-      <span className="hidden md:inline-block text-[9px] tracking-[0.18em] uppercase px-2.5 py-0.5 whitespace-nowrap" style={{ color: c.color, border: `1px solid ${c.color}35` }}>{c.badge}</span>
-      <span className={`hidden md:inline-block text-sm transition-transform duration-200 ${h ? "text-[#5ba8f5] translate-x-1" : "text-[#1a3050]"}`}>→</span>
+      
+      <div className="p-6 md:p-8 flex flex-col h-[180px]">
+        <h3 className="font-syne font-bold text-[18px] md:text-[20px] text-portfolio-text mb-1.5 leading-[1.3] group-hover:text-portfolio-blue transition-colors duration-300 line-clamp-2">
+          {c.name}
+        </h3>
+        <p className="text-[13px] text-[#3a6a9a] mb-6 flex-grow">
+          {c.issuer}
+        </p>
+
+      </div>
     </div>
   );
 }
 
 function Certificates() {
   return (
-    <section id="certificates" className="px-5 md:px-[52px] py-16">
+    <section id="certificates" className="px-5 md:px-[52px] py-16 overflow-hidden">
       <SectionTag>Credentials</SectionTag>
       <SectionTitle>Certifi<span className="text-portfolio-blue shadow-blue-500/30 shadow-[0_0_18px]">cations</span></SectionTitle>
-      <div className="flex flex-col gap-0.5">
+      
+      {/* Horizontal Slider visually mimicking the user's design constraints */}
+      <div 
+        className="flex overflow-x-auto gap-6 md:gap-8 pb-10 pt-4 mt-6 snap-x snap-mandatory hide-scroll"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
         {CERTS.map((c, i) => <CertCard key={c.name} c={c} i={i} />)}
       </div>
     </section>
@@ -507,20 +608,25 @@ function Certificates() {
 }
 
 const ACHIEVEMENTS = [
-  { icon: "🏆", title: "Vibe Code India 2025 Hackathon", org: "Certificate of Participation", desc: "Successfully participated and competed in the Vibe Code India 2025 national hackathon.", year: "2025" },
-  { icon: "🔥", title: "100 Days LeetCode Streak Badge", org: "LeetCode", desc: "Maintained a continuous 100-day problem-solving streak, showcasing unyielding consistency and dedication.", year: "2024" },
+  { icon: "🏆", title: "Vibe Code India 2025 Hackathon", org: "Certificate of Participation", desc: "Successfully participated and competed in the Vibe Code India 2025 national hackathon.", year: "2025", image: "/vibecode-cert.jpg" },
+  { icon: "🔥", title: "100 Days LeetCode Streak Badge", org: "LeetCode", desc: "Maintained a continuous 100-day problem-solving streak, showcasing unyielding consistency and dedication.", year: "2025", image: "/leetcode-100-badge.jpg" },
 ];
 function AchievementCard({ a, i }) {
   const [h, setH] = useState(false);
   const w = useWidth();
   return (
     <div key={a.title} 
-      className={`reveal d${Math.min(i + 1, 4)} relative overflow-hidden p-6 md:p-7 transition-all duration-[0.28s] border col-span-1 ${
-         h ? "bg-[#0a193c]/70 border-portfolio-blue/30" : "bg-[#050c1e]/60 border-white/5"}`}
+      className={`reveal d${Math.min(i + 1, 4)} group relative overflow-hidden flex flex-col transition-all duration-[0.28s] border col-span-1 rounded-2xl ${
+         h ? "bg-[#0a193c]/70 border-portfolio-blue/30 -translate-y-1 shadow-[0_15px_30px_rgba(20,60,120,0.25)]" : "bg-[#050c1e]/60 border-white/5"}`}
       onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
     >
-      <div className="flex items-start gap-4">
-        <div className="text-[26px] leading-none">{a.icon}</div>
+      {a.image && (
+        <div className="w-full h-[200px] overflow-hidden bg-[#02050f] border-b border-white/5">
+          <img src={a.image} alt={a.title} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+        </div>
+      )}
+      <div className="p-6 md:p-7 flex items-start gap-4">
+        <div className="text-[26px] leading-none mt-1">{a.icon}</div>
         <div className="flex-1">
           <div className="flex justify-between items-start mb-1 flex-wrap gap-2">
             <div className={`font-syne font-extrabold text-[15px] transition-colors duration-200 ${h ? "text-portfolio-text" : "text-[#8ba8c8]"}`}>{a.title}</div>
@@ -548,19 +654,6 @@ function Achievements() {
   );
 }
 
-function Resume() {
-  return (
-    <section id="resume" className="px-5 md:px-[52px] py-16 relative">
-      <SectionTag>Background</SectionTag>
-      <div className="flex justify-between items-end flex-wrap gap-3.5">
-        <SectionTitle>My <span className="text-portfolio-blue shadow-blue-500/30 shadow-[0_0_18px]">Résumé</span></SectionTitle>
-        <a href="/resume.pdf" target="_blank" className="reveal d1 flex items-center gap-2 px-[18px] py-[9px] border border-portfolio-blue/30 text-portfolio-blue font-syne font-bold text-[11px] tracking-[0.1em] uppercase bg-portfolio-blue/10 hover:bg-portfolio-blue/20 hover:shadow-[0_0_16px_rgba(30,80,160,0.28)] transition-all duration-200 mb-11 whitespace-nowrap">
-          ↓ Download PDF
-        </a>
-      </div>
-    </section>
-  );
-}
 
 function SocialLink({ l }) {
   const [h, setH] = useState(false);
@@ -735,7 +828,6 @@ export default function App() {
         <Projects />
         <Certificates />
         <Achievements />
-        <Resume />
         <Education />
         <Contact />
         <Footer />
