@@ -573,9 +573,7 @@ function CertCard({ c, i, onClick }) {
             {c.name.charAt(0)}
           </div>
         )}
-        <div className="absolute top-4 right-4 bg-[#0a193c]/90 backdrop-blur-md border border-white/10 text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full" style={{ color: c.color }}>
-          {c.year}
-        </div>
+
       </div>
       
       <div className="p-6 md:p-8 flex flex-col h-[180px]">
