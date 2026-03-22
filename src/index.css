@@ -37,6 +37,9 @@
     50% { transform: translateY(-14px) rotate(2deg); }
   }
 
+}
+
+@layer utilities {
   .hide-scroll::-webkit-scrollbar {
     display: none;
   }
