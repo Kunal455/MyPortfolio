@@ -557,12 +557,13 @@ const CERTS = [
   { year: "2025", name: "Git and Github", issuer: "CipherSchools", badge: "Active", color: "#f58b5b", image: "/cipher-git-cert.png", link: "https://www.cipherschools.com/verify/CSW2025-11521" },
   { year: "2024", name: "Data Structures & Algorithms Using C++", issuer: "CipherSchools", badge: "Active", color: "#e88b5b", image: "/cipher-dsa-cert.png", link: "https://www.cipherschools.com/verify/CS2024-10167" },
 ];
-function CertCard({ c, i }) {
+function CertCard({ c, i, onClick }) {
   const [h, setH] = useState(false);
   return (
     <div 
-      className={`reveal d${Math.min(i + 1, 4)} group flex-shrink-0 w-[300px] md:w-[380px] bg-[#081021] rounded-[24px] overflow-hidden border border-white/5 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(20,50,100,0.25)] hover:border-[#3a7abf]/40 snap-center`}
+      className={`reveal d${Math.min(i + 1, 4)} group flex-shrink-0 w-[300px] md:w-[380px] bg-[#081021] rounded-[24px] overflow-hidden border border-white/5 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(20,50,100,0.25)] hover:border-[#3a7abf]/40 snap-center cursor-pointer`}
       onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
+      onClick={onClick}
     >
       <div className="w-full aspect-[4/3] overflow-hidden relative bg-[#040814]">
         {c.image ? (
@@ -591,6 +592,22 @@ function CertCard({ c, i }) {
 }
 
 function Certificates() {
+  const [activeCert, setActiveCert] = useState(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setActiveCert(null);
+    };
+    if (activeCert) window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeCert]);
+
+  useEffect(() => {
+    if (activeCert) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = 'auto';
+    return () => { document.body.style.overflow = 'auto'; };
+  }, [activeCert]);
+
   return (
     <section id="certificates" className="px-5 md:px-[52px] py-16 overflow-hidden">
       <SectionTag>Credentials</SectionTag>
@@ -601,8 +618,27 @@ function Certificates() {
         className="flex overflow-x-auto gap-6 md:gap-8 pb-10 pt-4 mt-6 snap-x snap-mandatory hide-scroll"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
-        {CERTS.map((c, i) => <CertCard key={c.name} c={c} i={i} />)}
+        {CERTS.map((c, i) => <CertCard key={c.name} c={c} i={i} onClick={() => setActiveCert(c)} />)}
       </div>
+
+      {/* Lightbox Modal */}
+      {activeCert && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-fadeIn" onClick={() => setActiveCert(null)}>
+          <div className="relative max-w-5xl w-full flex flex-col items-center justify-center animate-[fadeUp_0.3s_ease-out]">
+            <button className="absolute -top-12 md:-top-10 right-0 md:-right-4 text-white hover:text-portfolio-blue transition-colors text-4xl w-10 h-10 flex items-center justify-center" onClick={() => setActiveCert(null)}>
+              &times;
+            </button>
+            {activeCert.image ? (
+              <img src={activeCert.image} alt={activeCert.name} className="max-w-full max-h-[85vh] object-contain rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] border border-white/10 bg-[#040814]" onClick={(e) => e.stopPropagation()} />
+            ) : (
+              <div className="w-full max-w-md aspect-[4/3] flex flex-col items-center justify-center bg-[#040814] rounded-xl border border-white/10 gap-4" onClick={(e) => e.stopPropagation()}>
+                 <span className="text-[60px] leading-none" style={{ color: activeCert.color }}>{activeCert.name.charAt(0)}</span>
+                 <span className="text-[#8ba8c8] font-syne text-sm text-center px-6">Image not available for this certificate.</span>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </section>
   );
 }
@@ -621,8 +657,8 @@ function AchievementCard({ a, i }) {
       onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)}
     >
       {a.image && (
-        <div className="w-full h-[200px] overflow-hidden bg-[#02050f] border-b border-white/5">
-          <img src={a.image} alt={a.title} className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+        <div className="w-full aspect-square overflow-hidden bg-[#02050f] border-b border-white/5 p-4 flex items-center justify-center">
+          <img src={a.image} alt={a.title} className="w-full h-full object-contain transition-transform duration-700 ease-out group-hover:scale-105" />
         </div>
       )}
       <div className="p-6 md:p-7 flex items-start gap-4">
