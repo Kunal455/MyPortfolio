@@ -842,13 +842,19 @@ export default function App() {
   useReveal();
 
   useEffect(() => {
-    const secs = document.querySelectorAll("section[id]");
-    const io = new IntersectionObserver(
-      entries => entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); }),
-      { threshold: .25 }
-    );
-    secs.forEach(s => io.observe(s));
-    return () => io.disconnect();
+    const handleScroll = () => {
+      const secs = document.querySelectorAll("section[id]");
+      let curr = "home";
+      secs.forEach(s => {
+        if (s.getBoundingClientRect().top <= window.innerHeight / 3) {
+          curr = s.id;
+        }
+      });
+      setActive(curr);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   
   return (
